@@ -355,34 +355,67 @@
   });
 
   // HTML Overlay 5: Countdown
+  // HTML Overlay 5: Versi Hacking/Cyber
   createElement("div", {
     id: "appolosx9-countdown-overlay",
     className: "appolosx9-overlay",
     style: "display:none",
-    innerHTML: getHeaderHTML("INJEKSI DIMULAI") + `
-      <div class="appolosx9-countdown-container" style="text-align: center;">
-        <div class="appolosx9-circle-wrapper" style="position: relative; width: 90px; height: 90px; margin: 0 auto 20px;">
-          <svg class="appolosx9-svg-circle" width="90" height="90" viewBox="0 0 90 90" style="transform: rotate(-90deg);">
-            <circle cx="45" cy="45" r="38" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="7"/>
-            <circle id="appolosx9-progress-circle" cx="45" cy="45" r="38" fill="none" stroke="#3b82f6"
-              stroke-width="7" stroke-dasharray="238.76" stroke-dashoffset="0" stroke-linecap="round" 
-              style="filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6)); transition: stroke-dashoffset 1s linear;"/>
-          </svg>
-          <div id="appolosx9-countdown-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 28px; font-weight: 800; color: #f8fafc; text-shadow: 0 0 10px rgba(255,255,255,0.3);">5</div>
+    innerHTML: getHeaderHTML("SISTEM INJEKSI") + `
+      <div class="appolosx9-body">
+        <div id="appolosx9-hack-terminal" style="background: #000; color: #0f0; font-family: 'Courier New', monospace; padding: 12px; border-radius: 8px; font-size: 11px; height: 100px; overflow: hidden; border: 1px solid #333; margin-bottom: 16px; line-height: 1.4;">
+          > Menginisialisasi koneksi...<br>
+          > Melewati lapisan keamanan...<br>
+          > Menyuntikkan muatan...
         </div>
         
-        <div class="appolosx9-redirect-title" style="font-size: 16px; font-weight: 700; color: #f8fafc; margin-bottom: 6px;">Menyelesaikan Bypass...</div>
-        <div class="appolosx9-redirect-desc" style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">Memuat protokol keamanan berlapis</div>
-        
-        <div style="padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 12px; display: flex; align-items: flex-start; gap: 10px;">
-          <svg style="flex-shrink:0; margin-top:2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
-            <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        <div class="appolosx9-circle-wrapper" style="position: relative; width: 70px; height: 70px; margin: 0 auto 16px;">
+          <svg width="70" height="70" viewBox="0 0 70 70" style="transform: rotate(-90deg);">
+            <circle cx="35" cy="35" r="30" fill="none" stroke="#222" stroke-width="4"/>
+            <circle id="appolosx9-progress-circle" cx="35" cy="35" r="30" fill="none" stroke="#0f0" 
+              stroke-width="4" stroke-dasharray="188.5" stroke-dashoffset="0" stroke-linecap="round"/>
           </svg>
-          <span style="font-size: 12px; color: #fcd34d; line-height: 1.5; text-align: left; font-weight: 500;">Peringatan: Jangan tutup tab ini atau berpindah aplikasi untuk mencegah deteksi.</span>
+          <div id="appolosx9-countdown-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; font-weight: 800; color: #0f0;">5</div>
         </div>
+        
+        <div style="text-align: center; color: #fff; font-size: 12px; font-weight: 600;">ENCRYPTING DATA...</div>
       </div>`
   });
+
+const terminal = document.getElementById("appolosx9-hack-terminal");
+const logs = [
+  "ACCESSING GATEWAY...",
+  "MENGHUBUNGKAN KE SERVER INDUK...",
+  "BYPASSING FIREWALL...",
+  "MEMBONGKAR LAYER KEAMANAN...",
+  "INJECTING PROXY_AUTH...",
+  "MENYISIPKAN TOKEN VALIDASI...",
+  "OBFUSCATING REQUEST...",
+  "MENYAMARKAN IDENTITAS KONEKSI...",
+  "TARGET ACQUIRED.",
+  "MENEMUKAN TARGET DALAM JARINGAN...",
+  "DECRYPTING PACKET...",
+  "MEMECAHKAN ENKRIPSI DATA...",
+  "CONNECTION ESTABLISHED.",
+  "AKSES SISTEM BERHASIL...",
+  "MENJALANKAN CLEANUP MODULE...",
+  "MENGHAPUS LOG AKTIVITAS SEMENTARA...",
+  "CLEARING TRACE ROUTE...",
+  "MENIMPA JEJAK DIGITAL...",
+  "REMOVING SESSION HISTORY...",
+  "SINKRONISASI ULANG CACHE...",
+  "SEMUA JEJAK TELAH DIHAPUS.",
+  "SYSTEM RETURNED TO STEALTH MODE."
+];
+
+let logIndex = 0;
+const logInterval = setInterval(() => {
+  if (logIndex < logs.length) {
+    terminal.innerHTML += `> ${logs[logIndex]}<br>`;
+    terminal.scrollTop = terminal.scrollHeight; // Auto scroll ke bawah
+    logIndex++;
+  }
+}, (duration * 1000) / logs.length);
+
 
   const domElements = {
     keyInput: document.getElementById("appolosx9-key-input"),
