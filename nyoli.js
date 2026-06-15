@@ -32,43 +32,166 @@ return (await response.text()).trim();
     return el;
   }
 
-    const ICONS = {
-    check: `<svg class="appolosx9-step-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
-    spinner: `<svg class="appolosx9-step-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:appolosx9-spin 0.8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`,
-    circle: `<svg class="appolosx9-step-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>`
-  };
-
-  function getCloseButtonHTML() {
-    return `<button class="appolosx9-nav-btn appolosx9-close-btn" title="Tutup" style="padding: 6px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; transition: 0.2s;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9d1d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>`;
-  }
-
-  function getBackButtonHTML(onClickAction) {
-    return `<button class="appolosx9-nav-btn" onclick="${onClickAction}" title="Kembali" style="padding: 6px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; transition: 0.2s;">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9d1d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>`;
-  }
-
-function getHeaderHTML(title, showBack = false, backAction = "") {
+    function getHeaderHTML(title, showBack = false, backAction = "") {
   return `
-    <div class="appolosx9-header" style="background: rgba(22, 27, 34, 0.5); backdrop-filter: blur(10px);">
-      <div class="appolosx9-header-left">
-        <div class="appolosx9-icon" style="border: 1px solid rgba(56, 139, 253, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
-          <img src="${CONFIG.logoUrl}" alt="logo">
-        </div>
-        <div>
-          <div class="appolosx9-title" style="font-weight: 700; letter-spacing: 0.3px; color: #f0f6fc;">appolosx9Mods</div>
-          <div class="appolosx9-sub" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: #58a6ff; font-weight: 600;">${title}</div>
-        </div>
-      </div>
-      <div class="appolosx9-nav-buttons">
-        ${showBack ? getBackButtonHTML(backAction) : ""}
-        ${getCloseButtonHTML()}
-      </div>
-    </div>`;
-}
+  <div class="appolosx9-header">
+    
+    <div class="appolosx9-header-bg"></div>
 
+    <div class="appolosx9-header-left">
+      <div class="appolosx9-logo-wrap">
+        <img src="${CONFIG.logoUrl}" class="appolosx9-logo">
+      </div>
+
+      <div class="appolosx9-title-wrap">
+        <div class="appolosx9-title">
+          AppoloSX9
+        </div>
+        <div class="appolosx9-subtitle">
+          ${title}
+        </div>
+      </div>
+    </div>
+
+    <div class="appolosx9-nav-buttons">
+      ${showBack ? getBackButtonHTML(backAction) : ""}
+      ${getCloseButtonHTML()}
+    </div>
+
+  </div>
+
+  <style>
+  .appolosx9-header{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:14px 16px;
+      overflow:hidden;
+
+      background:
+      linear-gradient(
+      135deg,
+      rgba(17,24,39,.92),
+      rgba(30,41,59,.92)
+      );
+
+      border-bottom:1px solid rgba(255,255,255,.08);
+
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+  }
+
+  .appolosx9-header-bg{
+      position:absolute;
+      inset:0;
+      background:
+      radial-gradient(
+      circle at top right,
+      rgba(88,166,255,.25),
+      transparent 45%
+      ),
+      radial-gradient(
+      circle at bottom left,
+      rgba(147,51,234,.18),
+      transparent 50%
+      );
+      pointer-events:none;
+  }
+
+  .appolosx9-header-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      z-index:1;
+  }
+
+  .appolosx9-logo-wrap{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+
+      background:
+      linear-gradient(
+      135deg,
+      rgba(88,166,255,.25),
+      rgba(168,85,247,.25)
+      );
+
+      border:1px solid rgba(255,255,255,.12);
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      box-shadow:
+      0 8px 24px rgba(0,0,0,.35),
+      inset 0 1px 0 rgba(255,255,255,.08);
+  }
+
+  .appolosx9-logo{
+      width:28px;
+      height:28px;
+      object-fit:contain;
+  }
+
+  .appolosx9-title-wrap{
+      display:flex;
+      flex-direction:column;
+  }
+
+  .appolosx9-title{
+      color:#fff;
+      font-size:15px;
+      font-weight:800;
+      letter-spacing:.4px;
+  }
+
+  .appolosx9-subtitle{
+      color:#58a6ff;
+      font-size:11px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1px;
+  }
+
+  .appolosx9-nav-buttons{
+      display:flex;
+      gap:8px;
+      z-index:1;
+  }
+
+  .appolosx9-nav-btn{
+      width:36px;
+      height:36px;
+      border:none;
+      border-radius:12px;
+
+      background:rgba(255,255,255,.06);
+
+      backdrop-filter:blur(10px);
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      cursor:pointer;
+
+      transition:.25s;
+  }
+
+  .appolosx9-nav-btn:hover{
+      transform:translateY(-2px);
+      background:rgba(255,255,255,.12);
+      box-shadow:0 8px 20px rgba(0,0,0,.25);
+  }
+
+  .appolosx9-nav-btn:active{
+      transform:scale(.95);
+  }
+  </style>
+  `;
+}
   // Manajemen Overlay
   const OVERLAYS = ["appolosx9-auth-box", "appolosx9-dest-overlay", "appolosx9-select-mode-overlay", "appolosx9-loading-overlay", "appolosx9-countdown-overlay"];
 
@@ -94,45 +217,51 @@ createElement("style", {
   id: "appolosx9-modz-styles",
   textContent: `
     * { margin:0; padding:0; box-sizing:border-box; }
-/* Memperbaiki container overlay agar tidak tumpang tindih */
-.appolosx9-overlay {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 320px;
-    background: #0d1117;
-    border: 1px solid #30363d;
-    border-radius: 16px;
-    padding: 20px;
-    z-index: 999999;
-}
-
-/* Memperbaiki layout tombol pemilihan mode agar tidak berantakan */
-.appolosx9-body {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Layout Grid untuk Mode agar rapi (3 kolom atau 1 kolom rata) */
-.mode-selection-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 8px;
-}
-
-.mode-btn {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px;
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-}  `
+    .appolosx9-overlay { 
+      position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); 
+      z-index:2147483647; width:300px; background:rgba(13, 17, 23, 0.95); 
+      backdrop-filter: blur(15px); border:1px solid rgba(255,255,255,0.1); 
+      border-radius:16px; overflow:hidden; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    @media (max-width:600px) { .appolosx9-overlay { width:90%; max-width:300px; } }
+    .appolosx9-header { display:flex; align-items:center; justify-content:space-between; padding:18px 20px 14px; border-bottom:1px solid rgba(255,255,255,0.05); }
+    .appolosx9-header-left { display:flex; align-items:center; gap:12px; }
+    .appolosx9-icon { width:36px; height:36px; border-radius:10px; background:#161b22; border:1px solid rgba(56,139,253,0.3); display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .appolosx9-icon img { width:100%; height:100%; object-fit:cover; }
+    .appolosx9-title { font-size:14px; font-weight:700; color:#fff; }
+    .appolosx9-sub { font-size:10px; color:#58a6ff; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; }
+    .appolosx9-body { padding:18px 20px; }
+    
+    /* Destinasi Option */
+    .dest-option { 
+      width:100%; padding:12px; background:rgba(22, 27, 34, 0.6); 
+      border:1px solid rgba(255,255,255,0.08); border-radius:10px; 
+      display:flex; align-items:center; cursor:pointer; margin-bottom:8px; 
+      transition:all 0.2s ease; text-align:left;
+    }
+    .dest-option:hover { background:rgba(30, 35, 45, 0.8); border-color:rgba(56,139,253,0.3); }
+    .dest-option.selected { background:rgba(56,139,253,0.1); border-color:rgba(56,139,253,0.5); }
+    
+    .dest-option-icon { width:30px; height:30px; border-radius:8px; display:flex; align-items:center; justify-content:center; margin-right:12px; }
+    .dest-option-title { font-size:12px; font-weight:600; color:#e6edf3; }
+    .dest-option-sub { font-size:10px; color:#8b949e; }
+    
+    /* Button & Input */
+    .dest-confirm-btn { 
+      width:100%; padding:12px; border-radius:8px; font-size:13px; font-weight:600; 
+      cursor:pointer; border:none; background:#1f6feb; color:#fff; transition:0.2s;
+      margin-top:10px;
+    }
+    .dest-confirm-btn:hover { background:#388bfd; }
+    .dest-url-input { 
+      width:100%; padding:10px; background:#0d1117; border:1px solid #30363d; 
+      border-radius:8px; color:#fff; font-size:12px; margin-top:8px;
+    }
+    
+    /* Animasi */
+    @keyframes appolosx9-spin { to { transform:rotate(360deg); } }
+  `
 }, document.head);
 
   // Hapus overlay yang mungkin sudah ada
@@ -172,48 +301,49 @@ createElement("div", {
     id: "appolosx9-dest-overlay",
     className: "appolosx9-overlay",
     style: "display:none",
-    innerHTML: getHeaderHTML("Choose destination") + `
-      <div class="appolosx9-body" style="display: flex; flex-direction: column; gap: 10px;">
-        <div class="dest-desc" style="font-size: 12px; color: #8b949e; text-align: center; margin-bottom: 5px;">Pilih metode bypass:</div>
+    innerHTML: getHeaderHTML("Pilih Bypass Yang Ingin Anda Gunakan") + `
+      <div class="appolosx9-body">
+        <div class="dest-desc" style="margin-bottom: 16px; font-size: 12px; color: #8b949e;">Pilih metode bypass Anda:</div>
         
-        <!-- Opsi 1: Root -->
-        <button class="dest-option selected" id="dest-opt-root" style="display: flex; align-items: center; width: 100%; padding: 12px; border-radius: 8px; background: #161b22; border: 1px solid #30363d; cursor: pointer;">
-            <div style="margin-right: 12px;">󰘽</div> <!-- Ganti dengan SVG icon Anda -->
-            <div style="flex: 1; text-align: left;">
-                <div style="font-weight: bold; color: #fff; font-size: 13px;">Aincrad Root Bypass</div>
-                <div style="font-size: 11px; color: #8b949e;">Modifikasi sistem langsung</div>
-            </div>
-            <div class="radio-circle" style="width: 16px; height: 16px; border: 2px solid #30363d; border-radius: 50%;"></div>
+        <button class="dest-option selected" id="dest-opt-root" style="border: 1px solid rgba(56, 139, 253, 0.4); background: rgba(56, 139, 253, 0.05);">
+          <div class="dest-option-icon aincrad" style="background: rgba(56, 139, 253, 0.1);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#388bfd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div>
+          <div style="flex: 1;">
+            <div class="dest-option-title">Aincrad Root Bypass</div>
+            <div class="dest-option-sub">Modifikasi sistem langsung</div>
+          </div>
+          <div class="dest-radio"><div class="dest-radio-dot" style="opacity: 1;"></div></div>
         </button>
 
-        <!-- Opsi 2: Proxy -->
-        <button class="dest-option" id="dest-opt-proxy" style="display: flex; align-items: center; width: 100%; padding: 12px; border-radius: 8px; background: #161b22; border: 1px solid #30363d; cursor: pointer;">
-            <div style="margin-right: 12px;">󰈁</div> <!-- Ganti dengan SVG icon Anda -->
-            <div style="flex: 1; text-align: left;">
-                <div style="font-weight: bold; color: #fff; font-size: 13px;">Aincrad Proxy Bypass</div>
-                <div style="font-size: 11px; color: #8b949e;">Pengalihan jaringan aman</div>
-            </div>
-            <div class="radio-circle" style="width: 16px; height: 16px; border: 2px solid #30363d; border-radius: 50%;"></div>
+        <button class="dest-option" id="dest-opt-proxy">
+          <div class="dest-option-icon aincrad" style="background: rgba(56, 139, 253, 0.05);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#388bfd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/></svg></div>
+          <div style="flex: 1;">
+            <div class="dest-option-title">Aincrad Proxy Bypass</div>
+            <div class="dest-option-sub">Pengalihan jaringan yang aman</div>
+          </div>
+          <div class="dest-radio"><div class="dest-radio-dot"></div></div>
         </button>
 
-        <!-- Opsi 3: Custom -->
-        <button class="dest-option" id="dest-opt-custom" style="display: flex; align-items: center; width: 100%; padding: 12px; border-radius: 8px; background: #161b22; border: 1px solid #30363d; cursor: pointer;">
-            <div style="margin-right: 12px;">󰀬</div> <!-- Ganti dengan SVG icon Anda -->
-            <div style="flex: 1; text-align: left;">
-                <div style="font-weight: bold; color: #fff; font-size: 13px;">Custom Link</div>
-                <div style="font-size: 11px; color: #8b949e;">Masukkan target URL manual</div>
-            </div>
-            <div class="radio-circle" style="width: 16px; height: 16px; border: 2px solid #30363d; border-radius: 50%;"></div>
+        <button class="dest-option" id="dest-opt-custom">
+          <div class="dest-option-icon custom" style="background: rgba(163, 113, 247, 0.05);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a371f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg></div>
+          <div style="flex: 1;">
+            <div class="dest-option-title">Custom Link</div>
+            <div class="dest-option-sub">Masukkan target URL manual</div>
+          </div>
+          <div class="dest-radio"><div class="dest-radio-dot"></div></div>
         </button>
 
-        <div id="dest-custom-wrap" style="display:none; margin-top:5px;">
-          <input type="text" id="dest-url-input" class="dest-url-input" placeholder="https://..." style="width:100%; padding:10px; background:#0d1117; border:1px solid #30363d; border-radius:8px; color:#fff;">
+        <div id="dest-custom-wrap" style="display:none; margin-top:-4px; margin-bottom:8px;">
+          <input type="text" id="dest-url-input" class="dest-url-input" placeholder="https://..." autocomplete="off" style="border: 1px solid rgba(163, 113, 247, 0.3);">
         </div>
 
-        <button class="dest-confirm-btn" id="dest-confirm-btn" style="width: 100%; padding: 12px; background: #1f6feb; border: none; border-radius: 8px; color: #fff; font-weight: bold; cursor: pointer; margin-top: 5px;">Konfirmasi Pilihan</button>
-        <div id="appolosx9-dest-status" style="font-size: 11px; text-align: center; color: #8b949e;"></div>
+        <button class="dest-confirm-btn" id="dest-confirm-btn" style="height: 42px; font-size: 13px;">
+          Konfirmasi Pilihan
+        </button>
+        <div id="appolosx9-dest-status"></div>
       </div>`
 });
+
+
 
   // Buat HTML Overlay 3: Pilih Mode
 createElement("div", {
@@ -263,52 +393,50 @@ createElement("div", {
     style: "display:none",
     innerHTML: getHeaderHTML(`<span id="appolosx9-check-text">Memvalidasi...</span>`) + `
       <div class="appolosx9-body">
-        <!-- Progress Bar -->
-        <div class="appolosx9-progress-bar" style="background: rgba(255,255,255,0.05); height: 4px; margin-bottom: 20px; border-radius: 2px;">
-          <div class="appolosx9-progress-fill" style="background: linear-gradient(90deg, #388bfd, #58a6ff); height: 100%; border-radius: 2px;"></div>
+        <div class="appolosx9-progress-bar" style="background: rgba(255,255,255,0.05); height: 4px; margin-bottom: 20px;">
+          <div class="appolosx9-progress-fill" style="background: linear-gradient(90deg, #388bfd, #58a6ff);"></div>
         </div>
 
-        <!-- Langkah-langkah dengan Flexbox agar sejajar -->
-        <div id="appolosx9-step-1" class="appolosx9-step-item" style="color:#3fb950; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 12px; font-weight: 500;">
+        <div id="appolosx9-step-1" class="appolosx9-step-item" style="color:#3fb950; font-weight: 500;">
           ${ICONS.check} Kunci divalidasi
         </div>
-        <div id="appolosx9-step-2" class="appolosx9-step-item" style="color:#c9d1d9; display: flex; align-items: center; gap: 8px; margin-bottom: 10px; font-size: 12px; font-weight: 500;">
+        <div id="appolosx9-step-2" class="appolosx9-step-item" style="color:#c9d1d9; font-weight: 500;">
           ${ICONS.spinner} Memeriksa pembaruan...
         </div>
-        <div id="appolosx9-step-3" class="appolosx9-step-item" style="color:#7d8590; display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 500;">
+        <div id="appolosx9-step-3" class="appolosx9-step-item" style="color:#7d8590; font-weight: 500;">
           ${ICONS.circle} Pengalihan...
         </div>
       </div>`
 });
 
 
-
-createElement("div", {
+  // Buat HTML Overlay 5: Countdown
+  createElement("div", {
     id: "appolosx9-countdown-overlay",
     className: "appolosx9-overlay",
     style: "display:none",
     innerHTML: getHeaderHTML("Redirecting") + `
-      <div class="appolosx9-countdown-container" style="padding: 20px;">
+      <div class="appolosx9-countdown-container">
         <div class="appolosx9-circle-wrapper" style="position: relative; width: 80px; height: 80px; margin: 0 auto 15px;">
           <svg class="appolosx9-svg-circle" width="80" height="80" viewBox="0 0 80 80" style="transform: rotate(-90deg);">
             <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="6"/>
             <circle id="appolosx9-progress-circle" cx="40" cy="40" r="32" fill="none" stroke="#388bfd"
               stroke-width="6" stroke-dasharray="201.06" stroke-dashoffset="0" stroke-linecap="round" 
-              style="filter: drop-shadow(0 0 5px rgba(56, 139, 253, 0.5)); transition: stroke-dashoffset 0.3s linear;"/>
+              style="filter: drop-shadow(0 0 5px rgba(56, 139, 253, 0.5));"/>
           </svg>
           <div id="appolosx9-countdown-number" class="appolosx9-countdown-number" 
             style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; font-weight: 700; color: #fff;">5</div>
         </div>
         
-        <div class="appolosx9-redirect-title" style="font-weight: 600; color: #fff; margin-bottom: 4px; text-align: center;">Redirecting...</div>
-        <div class="appolosx9-redirect-desc" style="font-size: 11px; color: #8b949e; margin-bottom: 15px; text-align: center;">Jangan tutup aplikasi atau berpindah tab.</div>
+        <div class="appolosx9-redirect-title" style="font-weight: 600; color: #fff; margin-bottom: 4px;">Redirecting...</div>
+        <div class="appolosx9-redirect-desc" style="font-size: 11px; color: #8b949e; margin-bottom: 15px;">Jangan tutup aplikasi atau berpindah tab.</div>
         
-        <div style="padding: 10px; background: rgba(238, 167, 44, 0.05); border: 1px solid rgba(238, 167, 44, 0.2); border-radius: 8px; display: flex; align-items: flex-start; gap: 8px; text-align: left;">
+        <div style="padding: 10px; background: rgba(238, 167, 44, 0.05); border: 1px solid rgba(238, 167, 44, 0.2); border-radius: 8px; display: flex; align-items: flex-start; gap: 8px;">
           <svg style="flex-shrink:0; margin-top:2px;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#eea72c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
             <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
-          <span style="font-size: 10px; color: #eea72c; line-height: 1.4;">Jangan tutup aplikasi atau beralih antar tab untuk mencegah deteksi.</span>
+          <span style="font-size: 10px; color: #eea72c; line-height: 1.4; text-align: left;">Jangan tutup aplikasi atau beralih antar tab untuk mencegah deteksi.</span>
         </div>
       </div>`
 });
