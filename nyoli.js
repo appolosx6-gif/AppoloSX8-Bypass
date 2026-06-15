@@ -414,19 +414,30 @@
     domElements.destStatus.innerHTML = "";
     showOverlay("appolosx9-dest-overlay");
   };
-
+  
   function resetDestinationSelection() {
     document.querySelectorAll('.dest-option').forEach(el => {
       el.classList.remove('selected');
-      el.querySelector('.dest-radio-dot').style.opacity = '0';
-      el.querySelector('.dest-radio-dot').style.transform = 'scale(0)';
+      const dot = el.querySelector('.dest-radio-dot');
+      if (dot) {
+        dot.style.opacity = '0';
+        dot.style.transform = 'scale(0)';
+      }
     });
     domElements.optRoot.classList.add('selected');
+    
+    const defaultDot = domElements.optRoot.querySelector('.dest-radio-dot');
+    if (defaultDot) {
+      defaultDot.style.opacity = '1';
+      defaultDot.style.transform = 'scale(1)';
+    }
+
     domElements.customWrap.style.display = "none";
     domElements.urlInput.value = "";
     domElements.destStatus.innerHTML = "";
     domElements.confirmDestBtn.disabled = false;
   }
+
 
   [domElements.optRoot, domElements.optProxy, domElements.optCustom].forEach(btn => {
     btn.addEventListener("click", () => {
