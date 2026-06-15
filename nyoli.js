@@ -118,6 +118,14 @@
       
       @media (max-width:400px) { .appolosx9-overlay { width:92%; } }
       
+          /* FIX: Mencegah kotak lompat ke atas saat keyboard HP muncul */
+    @media (max-height: 500px) { 
+      .appolosx9-overlay { 
+        top: 20px !important; 
+        transform: translateX(-50%) !important; 
+      } 
+    }
+      
       .appolosx9-header { display:flex; align-items:center; justify-content:space-between; padding:20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
       .appolosx9-header-left { display:flex; align-items:center; gap:14px; }
       .appolosx9-icon { width:42px; height:42px; border-radius:12px; background:#1e293b; border:1px solid rgba(59,130,246,0.4); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow: 0 0 15px rgba(59,130,246,0.2); }
