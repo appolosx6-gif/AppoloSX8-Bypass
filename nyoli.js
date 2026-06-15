@@ -268,34 +268,116 @@ createElement("style", {
   OVERLAYS.forEach(id => document.getElementById(id)?.remove());
 
   // Buat HTML Overlay 1: Auth Box
-  createElement("div", {
-    id: "appolosx9-auth-box",
-    className: "appolosx9-overlay",
-    innerHTML: getHeaderHTML("Verifikasi lisensi") + `
-      <div class="appolosx9-body">
-        <div class="appolosx9-input-wrap">
-          <span class="appolosx9-input-icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-            </svg>
-          </span>
-          <input type="text" id="appolosx9-key-input" placeholder="Masukkan kunci lisensi" autocomplete="off" spellcheck="false" style="padding-left: 36px;">
-        </div>
-        
-        <button id="appolosx9-login-btn" class="appolosx9-btn" style="height: 40px; margin-bottom: 10px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          Verify key
-        </button>
-        
-        <button id="appolosx9-telegram-btn" class="appolosx9-btn" style="background: rgba(255,255,255,0.05); color: #8b949e; height: 40px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          Get Key
-        </button>
-        
-        <div id="appolosx9-status" style="margin-top: 15px; font-size: 11px; opacity: 0.8;">Masukkan kunci Anda untuk melanjutkan</div>
-      </div>`
-  });
+createElement("div", {
+  id: "appolosx9-auth-box",
+  className: "appolosx9-overlay",
+  innerHTML: getHeaderHTML("Verifikasi Lisensi") + `
+    
+    <div class="appolosx9-body">
 
+      <div style="text-align:center;margin-bottom:18px;">
+        <div style="
+          width:60px;
+          height:60px;
+          margin:auto;
+          border-radius:16px;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          background:linear-gradient(135deg,#58a6ff22,#7c3aed22);
+          border:1px solid rgba(255,255,255,.08);
+        ">
+          🔐
+        </div>
+
+        <div style="
+          margin-top:12px;
+          font-size:16px;
+          font-weight:700;
+          color:#f0f6fc;
+        ">
+          Selamat Datang
+        </div>
+
+        <div style="
+          margin-top:4px;
+          font-size:11px;
+          color:#8b949e;
+        ">
+          Masukkan kunci lisensi untuk melanjutkan
+        </div>
+      </div>
+
+      <div class="appolosx9-input-wrap">
+        <span class="appolosx9-input-icon">
+          🔑
+        </span>
+
+        <input
+          type="text"
+          id="appolosx9-key-input"
+          placeholder="Masukkan kunci lisensi..."
+          autocomplete="off"
+          spellcheck="false"
+          style="
+            padding-left:40px;
+            height:44px;
+            border-radius:12px;
+          "
+        >
+      </div>
+
+      <button
+        id="appolosx9-login-btn"
+        class="appolosx9-btn"
+        style="
+          height:44px;
+          margin-top:12px;
+          margin-bottom:10px;
+          border-radius:12px;
+          font-weight:700;
+          background:linear-gradient(
+            135deg,
+            #58a6ff,
+            #7c3aed
+          );
+        "
+      >
+        ✓ Verifikasi Kunci
+      </button>
+
+      <button
+        id="appolosx9-telegram-btn"
+        class="appolosx9-btn"
+        style="
+          height:44px;
+          border-radius:12px;
+          background:rgba(255,255,255,.05);
+          color:#c9d1d9;
+        "
+      >
+        ↗ Dapatkan Kunci
+      </button>
+
+      <div
+        id="appolosx9-status"
+        style="
+          margin-top:15px;
+          padding:10px;
+          border-radius:10px;
+          text-align:center;
+          font-size:11px;
+          background:rgba(255,255,255,.03);
+          border:1px solid rgba(255,255,255,.05);
+          color:#8b949e;
+        "
+      >
+        Menunggu verifikasi lisensi...
+      </div>
+
+    </div>
+  `
+});
 
 createElement("div", {
     id: "appolosx9-dest-overlay",
