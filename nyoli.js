@@ -429,8 +429,8 @@ function resetDestinationSelection() {
   domElements.optRoot.classList.add('selected');
   const rootDot = domElements.optRoot.querySelector('.dest-radio-dot');
   if (rootDot) {
-    rootDot.style.opacity = '1';
-    rootDot.style.transform = 'scale(1)';
+    rootDot.style.opacity = '0';
+    rootDot.style.transform = 'scale(0)';
   }
 
   domElements.customWrap.style.display = "none";
