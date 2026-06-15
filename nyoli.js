@@ -11,7 +11,6 @@
     keyUrl: BASE_URL + "isikanjut.txt",
     redirectUrl: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/kepala.txt?t=",
     redirectUrl2: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/ainproxy.txt?t=",
-    laguUrl: "https://github.com/appolosx6-gif/AppoloSX8-Bypass/raw/refs/heads/main/DJ%20MIDDLE%20BREAKBEAT%20FULL%20BASS%202026%20DJ%20PIDUT.mp3",
     telegramUrl: BASE_URL + "button.txt",
     logoUrl: BASE_URL + "logo.jpg"
   };
@@ -550,7 +549,7 @@
     }
     return { valid: false, duration: 0, hasCustomDuration: false };
   }
-
+/*
   async function startRedirect(url, duration) {
     showOverlay("appolosx9-loading-overlay");
     const checkText = document.getElementById("appolosx9-check-text");
@@ -570,7 +569,7 @@
       step: "Protokol diperbarui"
     } : {
       sub: `<span style="color:#94a3b8; display:flex; align-items:center; gap:6px;">${ICONS.check} Rute lokal digunakan.</span>`,
-      step: "Menggunakan cache aman."
+      step: "Menggunakan jejak aman."
     };
 
     if (checkText) {
@@ -614,6 +613,94 @@
         window.location.replace(url);
       }
     }, 1000);
+  }
+*/
+
+  async function startRedirect(url, duration) {
+    showOverlay("appolosx9-loading-overlay");
+    const checkText = document.getElementById("appolosx9-check-text");
+    const step2 = document.getElementById("appolosx9-step-2");
+    const step3 = document.getElementById("appolosx9-step-3");
+    
+    let isUpdated = false;
+    try {
+      const workerResp = await fetchText("https://bian-modz.workers.dev/");
+      isUpdated = workerResp.includes("GitHub Updated");
+    } catch (err) {}
+    
+    await delay(2000);
+    
+    const updateStatus = isUpdated ? {
+      sub: `<span style="color:#10b981; display:flex; align-items:center; gap:6px;">${ICONS.check} Sinkronisasi Selesai.</span>`,
+      step: "Protokol diperbarui"
+    } : {
+      sub: `<span style="color:#94a3b8; display:flex; align-items:center; gap:6px;">${ICONS.check} Rute lokal digunakan.</span>`,
+      step: "Menggunakan jejak aman."
+    };
+
+    if (checkText) {
+      checkText.style.opacity = "0";
+      setTimeout(() => {
+        checkText.innerHTML = updateStatus.sub;
+        checkText.style.opacity = "1";
+        checkText.style.transition = "opacity 0.4s ease";
+      }, 200);
+    }
+
+    if (step2) {
+      step2.style.color = "#10b981";
+      step2.innerHTML = `${ICONS.check} <span style="color:#f8fafc;">${updateStatus.step}</span>`;
+    }
+
+    if (step3) {
+      step3.style.color = "#3b82f6";
+      step3.innerHTML = `${ICONS.spinner} <span style="color:#f8fafc;">Mengeksekusi bypass...</span>`;
+    }
+    
+    await delay(1200);
+    showOverlay("appolosx9-countdown-overlay");
+    
+    setTimeout(() => {
+      const terminal = document.getElementById("appolosx9-hack-terminal");
+      const countNum = document.getElementById("appolosx9-countdown-number");
+      const progress = document.getElementById("appolosx9-progress-circle");
+      
+      const logLibrary = [
+        "BYPASS GETKEY DIJALANKAN...",
+        "CREDIT$= ZXI, RAMA, BYANN",
+        "========================",
+        "ACCESSING KERNEL...",
+        "DUMPING MEMORY...",
+        "WRITING BYPASS SCRIPT...",
+        "CHECKING TARGET INTEGRITY...",
+        "ESTABLISHING SECURE TUNNEL...",
+        "SINKRONISASI DATA...",
+        "MENGHAPUS LOG AKTIVITAS...",
+        "STABILIZING LINK...",
+        "KONEKSI AMAN...",
+        "BYPASS BERHASIL...",
+        "MENGALIHKAN KE TARGET..."
+      ];
+
+      if (terminal) {
+        terminal.innerHTML = logLibrary.map(log => `> ${log}`).join("<br>");
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+
+      const circum = 2 * Math.PI * 35;
+      let timeLeft = duration;
+      
+      const timer = setInterval(() => {
+        timeLeft--;
+        if (countNum) countNum.textContent = timeLeft;
+        if (progress) progress.style.strokeDashoffset = circum - (timeLeft / duration) * circum;
+        
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.replace(url);
+        }
+      }, 1000);
+    }, 100);
   }
 
   domElements.telegramBtn.addEventListener("click", async () => {
