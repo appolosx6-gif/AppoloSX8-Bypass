@@ -415,7 +415,32 @@
     showOverlay("appolosx9-dest-overlay");
   };
   
-  function resetDestinationSelection() {
+function resetDestinationSelection() {
+  document.querySelectorAll('.dest-option').forEach(el => {
+    el.classList.remove('selected');
+    const dot = el.querySelector('.dest-radio-dot');
+    if (dot) {
+      dot.style.opacity = '0';
+      dot.style.transform = 'scale(0)';
+    }
+  });
+
+  // Set default (optRoot)
+  domElements.optRoot.classList.add('selected');
+  const rootDot = domElements.optRoot.querySelector('.dest-radio-dot');
+  if (rootDot) {
+    rootDot.style.opacity = '1';
+    rootDot.style.transform = 'scale(1)';
+  }
+
+  domElements.customWrap.style.display = "none";
+  domElements.urlInput.value = "";
+  domElements.destStatus.innerHTML = "";
+  domElements.confirmDestBtn.disabled = false;
+}
+
+[domElements.optRoot, domElements.optProxy, domElements.optCustom].forEach(btn => {
+  btn.addEventListener("click", () => {
     document.querySelectorAll('.dest-option').forEach(el => {
       el.classList.remove('selected');
       const dot = el.querySelector('.dest-radio-dot');
@@ -424,29 +449,19 @@
         dot.style.transform = 'scale(0)';
       }
     });
-    domElements.optRoot.classList.add('selected');
-    
-    const defaultDot = domElements.optRoot.querySelector('.dest-radio-dot');
-    if (defaultDot) {
-      defaultDot.style.opacity = '1';
-      defaultDot.style.transform = 'scale(1)';
+
+    btn.classList.add('selected');
+
+    const currentDot = btn.querySelector('.dest-radio-dot');
+    if (currentDot) {
+      currentDot.style.opacity = '1';
+      currentDot.style.transform = 'scale(1)';
     }
 
-    domElements.customWrap.style.display = "none";
-    domElements.urlInput.value = "";
-    domElements.destStatus.innerHTML = "";
-    domElements.confirmDestBtn.disabled = false;
-  }
-
-
-  [domElements.optRoot, domElements.optProxy, domElements.optCustom].forEach(btn => {
-    btn.addEventListener("click", () => {
-      document.querySelectorAll('.dest-option').forEach(el => el.classList.remove('selected'));
-      btn.classList.add('selected');
-      domElements.customWrap.style.display = (btn === domElements.optCustom) ? "block" : "none";
-      if(btn === domElements.optCustom) domElements.urlInput.focus();
-    });
+    domElements.customWrap.style.display = (btn === domElements.optCustom) ? "block" : "none";
   });
+});
+
 
   domElements.confirmDestBtn.addEventListener("click", async () => {
     const isCustom = domElements.optCustom.classList.contains("selected");
