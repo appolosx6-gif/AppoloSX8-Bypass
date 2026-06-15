@@ -272,46 +272,31 @@ createElement("div", {
   id: "appolosx9-auth-box",
   className: "appolosx9-overlay",
   innerHTML: getHeaderHTML("Verifikasi Lisensi") + `
-    
     <div class="appolosx9-body">
 
-      <div style="text-align:center;margin-bottom:18px;">
-        <div style="
-          width:60px;
-          height:60px;
-          margin:auto;
-          border-radius:16px;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          background:linear-gradient(135deg,#58a6ff22,#7c3aed22);
-          border:1px solid rgba(255,255,255,.08);
-        ">
-          🔐
-        </div>
+      <div style="text-align:center;margin-bottom:15px;">
+        <div style="font-size:40px;">🔐</div>
 
         <div style="
-          margin-top:12px;
+          color:#f0f6fc;
           font-size:16px;
           font-weight:700;
-          color:#f0f6fc;
+          margin-top:8px;
         ">
-          Selamat Datang
+          Verifikasi Lisensi
         </div>
 
         <div style="
-          margin-top:4px;
-          font-size:11px;
           color:#8b949e;
+          font-size:11px;
+          margin-top:4px;
         ">
           Masukkan kunci lisensi untuk melanjutkan
         </div>
       </div>
 
       <div class="appolosx9-input-wrap">
-        <span class="appolosx9-input-icon">
-          🔑
-        </span>
+        <span class="appolosx9-input-icon">🔑</span>
 
         <input
           type="text"
@@ -319,56 +304,37 @@ createElement("div", {
           placeholder="Masukkan kunci lisensi..."
           autocomplete="off"
           spellcheck="false"
-          style="
-            padding-left:40px;
-            height:44px;
-            border-radius:12px;
-          "
+          style="padding-left:40px;"
         >
       </div>
 
       <button
         id="appolosx9-login-btn"
         class="appolosx9-btn"
-        style="
-          height:44px;
-          margin-top:12px;
-          margin-bottom:10px;
-          border-radius:12px;
-          font-weight:700;
-          background:linear-gradient(
-            135deg,
-            #58a6ff,
-            #7c3aed
-          );
-        "
+        style="height:42px;margin-top:10px;"
       >
-        ✓ Verifikasi Kunci
+        Verifikasi Kunci
       </button>
 
       <button
         id="appolosx9-telegram-btn"
         class="appolosx9-btn"
         style="
-          height:44px;
-          border-radius:12px;
+          height:42px;
           background:rgba(255,255,255,.05);
-          color:#c9d1d9;
+          color:#8b949e;
+          margin-top:8px;
         "
       >
-        ↗ Dapatkan Kunci
+        Dapatkan Kunci
       </button>
 
       <div
         id="appolosx9-status"
         style="
           margin-top:15px;
-          padding:10px;
-          border-radius:10px;
           text-align:center;
           font-size:11px;
-          background:rgba(255,255,255,.03);
-          border:1px solid rgba(255,255,255,.05);
           color:#8b949e;
         "
       >
