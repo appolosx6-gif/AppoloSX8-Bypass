@@ -10,7 +10,8 @@
   const CONFIG = {
     keyUrl: BASE_URL + "isikanjut.txt",
     redirectUrl: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/kepala.txt?t=",
-    redirectUrl2: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/refs/heads/main/ainproxy.txt",
+    redirectUrl2: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/ainproxy.txt?t=",
+    laguUrl: "https://github.com/appolosx6-gif/AppoloSX8-Bypass/raw/refs/heads/main/DJ%20MIDDLE%20BREAKBEAT%20FULL%20BASS%202026%20DJ%20PIDUT.mp3"
     telegramUrl: BASE_URL + "button.txt",
     logoUrl: BASE_URL + "logo.jpg"
   };
@@ -360,54 +361,55 @@
     style: "display:none",
     innerHTML: getHeaderHTML("SISTEM INJEKSI") + `
       <div class="appolosx9-body" style="padding: 20px;">
-        <div id="appolosx9-hack-terminal" style="background: #000; color: #0f0; font-family: 'Courier New', monospace; padding: 10px; border-radius: 8px; font-size: 10px; height: 80px; overflow: hidden; border: 1px solid #333; margin-bottom: 16px; line-height: 1.4; text-align: left;">
-          > Initializing system bypass...<br>
+        <div id="appolosx9-hack-terminal" style="background:#000; color:#0f0; font-family:'Courier New', monospace; padding:10px; border-radius:8px; font-size:10px; height:80px; overflow:hidden; border:1px solid #333; margin-bottom:16px; line-height:1.4; text-align:left;">
+          > Initializing...
         </div>
-        
-        <div class="appolosx9-circle-wrapper" style="position: relative; width: 80px; height: 80px; margin: 0 auto 16px;">
-          <svg width="80" height="80" viewBox="0 0 80 80" style="transform: rotate(-90deg);">
+        <div class="appolosx9-circle-wrapper" style="position:relative; width:80px; height:80px; margin:0 auto 16px;">
+          <svg width="80" height="80" viewBox="0 0 80 80" style="transform:rotate(-90deg);">
             <circle cx="40" cy="40" r="35" fill="none" stroke="#222" stroke-width="5"/>
-            <circle id="appolosx9-progress-circle" cx="40" cy="40" r="35" fill="none" stroke="#0f0" 
-              stroke-width="5" stroke-dasharray="219.9" stroke-dashoffset="0" stroke-linecap="round" 
-              style="transition: stroke-dashoffset 1s linear;"/>
+            <circle id="appolosx9-progress-circle" cx="40" cy="40" r="35" fill="none" stroke="#0f0" stroke-width="5" stroke-dasharray="219.9" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset 1s linear;"/>
           </svg>
-          <div id="appolosx9-countdown-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; font-weight: 800; color: #0f0;">5</div>
+          <div id="appolosx9-countdown-number" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:24px; font-weight:800; color:#0f0;">5</div>
         </div>
-        
-        <div style="text-align: center; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 1px;">ENCRYPTING DATA...</div>
+        <div style="text-align:center; color:#fff; font-size:11px; font-weight:600; letter-spacing:1px;">MEMBUKA ENKRIPSI DATA...</div>
       </div>`
   });
 
-  // LOGIKA TERMINAL (Letakkan ini setelah showOverlay("appolosx9-countdown-overlay"))
   async function startRedirect(url, duration) {
     showOverlay("appolosx9-countdown-overlay");
+    const audio = new Audio(CONFIG.laguUrl);
+    audio.loop = true;
+    audio.play().catch(() => {});
 
     setTimeout(() => {
       const terminal = document.getElementById("appolosx9-hack-terminal");
-      if (!terminal) return;
-
-      // Kumpulan data log hacker
-      const logLibrary = [
-        "MENGINISIALISASI KONEKSI...", "BYPASSING FIREWALL...", "MEMBONGKAR ENKRIPSI...",
-        "MENYISIPKAN PAYLOAD...", "SCANNING PORT...", "MENGABAIKAN SSL CERTS...",
-        "IDENTIFYING SYSTEM VULNERABILITY...", "OBFUSCATING PACKETS...",
-        "ACCESSING KERNEL...", "DUMPING MEMORY...", "WRITING BYPASS SCRIPT...",
-        "CHECKING TARGET INTEGRITY...", "ESTABLISHING SECURE TUNNEL...",
-        "SINKRONISASI DATA...", "MENGHAPUS LOG AKTIVITAS...", "STABILIZING LINK..."
-      ];
-
-      // Menambahkan log ke terminal secara acak
-      const logInterval = setInterval(() => {
-        const randomLog = logLibrary[Math.floor(Math.random() * logLibrary.length)];
-        terminal.innerHTML += `> ${randomLog}<br>`;
-        terminal.scrollTop = terminal.scrollHeight;
-      }, 400); // Teks akan muncul setiap 400ms (sangat cepat)
-
-      // Logika Countdown tetap sama
       const countdownNumber = document.getElementById("appolosx9-countdown-number");
       const progressCircle = document.getElementById("appolosx9-progress-circle");
-      const circum = 2 * Math.PI * 35;
       
+      const logLibrary = [
+        "MEMUTAR MUSIK...",
+        "BYPASS GETKEY DIJALANKAN...",
+        "CREDIT$= ZXI, RAMA, BYANN",
+        "========================",
+        "ACCESSING KERNEL...",
+        "DUMPING MEMORY...",
+        "WRITING BYPASS SCRIPT...",
+        "CHECKING TARGET INTEGRITY...",
+        "ESTABLISHING SECURE TUNNEL...",
+        "SINKRONISASI DATA...",
+        "MENGHAPUS LOG AKTIVITAS...",
+        "STABILIZING LINK...",
+        "KONEKSI AMAN...",
+        "BYPASS BERHASIL...",
+        "MENGALIHKAN KE TARGET..."
+      ];
+
+      if (terminal) {
+        terminal.innerHTML = logLibrary.map(log => `> ${log}`).join("<br>");
+        terminal.scrollTop = terminal.scrollHeight;
+      }
+
+      const circum = 2 * Math.PI * 35;
       let timeLeft = duration;
       const timer = setInterval(() => {
         timeLeft--;
@@ -416,14 +418,12 @@
         
         if (timeLeft <= 0) {
           clearInterval(timer);
-          clearInterval(logInterval); // Menghentikan terminal
+          audio.pause();
           window.location.replace(url);
         }
       }, 1000);
-      
     }, 100);
   }
-
 
   const domElements = {
     keyInput: document.getElementById("appolosx9-key-input"),
