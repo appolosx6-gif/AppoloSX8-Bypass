@@ -418,21 +418,12 @@
 function resetDestinationSelection() {
   document.querySelectorAll('.dest-option').forEach(el => {
     el.classList.remove('selected');
-    const dot = el.querySelector('.dest-radio-dot');
-    if (dot) {
-      dot.style.opacity = '0';
-      dot.style.transform = 'scale(0)';
-    }
   });
 
-  // Set default (optRoot)
+  // Set optRoot sebagai default
   domElements.optRoot.classList.add('selected');
-  const rootDot = domElements.optRoot.querySelector('.dest-radio-dot');
-  if (rootDot) {
-    rootDot.style.opacity = '0';
-    rootDot.style.transform = 'scale(0)';
-  }
 
+  // Logic untuk menyembunyikan custom link
   domElements.customWrap.style.display = "none";
   domElements.urlInput.value = "";
   domElements.destStatus.innerHTML = "";
@@ -441,27 +432,18 @@ function resetDestinationSelection() {
 
 [domElements.optRoot, domElements.optProxy, domElements.optCustom].forEach(btn => {
   btn.addEventListener("click", () => {
+    // 1. Hapus class 'selected' dari semua opsi
     document.querySelectorAll('.dest-option').forEach(el => {
       el.classList.remove('selected');
-      const dot = el.querySelector('.dest-radio-dot');
-      if (dot) {
-        dot.style.opacity = '0';
-        dot.style.transform = 'scale(0)';
-      }
     });
 
+    // 2. Tambahkan class ke tombol yang diklik
     btn.classList.add('selected');
 
-    const currentDot = btn.querySelector('.dest-radio-dot');
-    if (currentDot) {
-      currentDot.style.opacity = '1';
-      currentDot.style.transform = 'scale(1)';
-    }
-
+    // 3. Toggle input custom
     domElements.customWrap.style.display = (btn === domElements.optCustom) ? "block" : "none";
   });
 });
-
 
   domElements.confirmDestBtn.addEventListener("click", async () => {
     const isCustom = domElements.optCustom.classList.contains("selected");
