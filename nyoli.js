@@ -354,11 +354,13 @@
       <style>@keyframes gradientMove { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }</style>`
   });
 
+  // 1. Definisikan overlay dengan struktur yang aman
   createElement("div", {
     id: "appolosx9-countdown-overlay",
     className: "appolosx9-overlay",
     style: "display:none",
-    innerHTML: getHeaderHTML("SISTEM INJEKSI") + `
+    innerHTML: `
+      <div class="appolosx9-header" style="padding:20px; border-bottom:1px solid #333;">SISTEM INJEKSI</div>
       <div class="appolosx9-body" style="padding: 20px;">
         <div id="appolosx9-hack-terminal" style="background:#000; color:#0f0; font-family:'Courier New', monospace; padding:10px; border-radius:8px; font-size:10px; height:80px; overflow:hidden; border:1px solid #333; margin-bottom:16px; line-height:1.4; text-align:left;">
           > Initializing...
@@ -373,56 +375,6 @@
         <div style="text-align:center; color:#fff; font-size:11px; font-weight:600; letter-spacing:1px;">MEMBUKA ENKRIPSI DATA...</div>
       </div>`
   });
-
-  async function startRedirect(url, duration) {
-    showOverlay("appolosx9-countdown-overlay");
-    const audio = new Audio(CONFIG.laguUrl);
-    audio.loop = true;
-    audio.play().catch(() => {});
-
-    setTimeout(() => {
-      const terminal = document.getElementById("appolosx9-hack-terminal");
-      const countdownNumber = document.getElementById("appolosx9-countdown-number");
-      const progressCircle = document.getElementById("appolosx9-progress-circle");
-      
-      const logLibrary = [
-        "MEMUTAR MUSIK...",
-        "BYPASS GETKEY DIJALANKAN...",
-        "CREDIT$= ZXI, RAMA, BYANN",
-        "========================",
-        "ACCESSING KERNEL...",
-        "DUMPING MEMORY...",
-        "WRITING BYPASS SCRIPT...",
-        "CHECKING TARGET INTEGRITY...",
-        "ESTABLISHING SECURE TUNNEL...",
-        "SINKRONISASI DATA...",
-        "MENGHAPUS LOG AKTIVITAS...",
-        "STABILIZING LINK...",
-        "KONEKSI AMAN...",
-        "BYPASS BERHASIL...",
-        "MENGALIHKAN KE TARGET..."
-      ];
-
-      if (terminal) {
-        terminal.innerHTML = logLibrary.map(log => `> ${log}`).join("<br>");
-        terminal.scrollTop = terminal.scrollHeight;
-      }
-
-      const circum = 2 * Math.PI * 35;
-      let timeLeft = duration;
-      const timer = setInterval(() => {
-        timeLeft--;
-        if (countdownNumber) countdownNumber.textContent = timeLeft;
-        if (progressCircle) progressCircle.style.strokeDashoffset = circum - (timeLeft / duration) * circum;
-        
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          audio.pause();
-          window.location.replace(url);
-        }
-      }, 1000);
-    }, 100);
-  }
 
   const domElements = {
     keyInput: document.getElementById("appolosx9-key-input"),
