@@ -15,6 +15,7 @@
     logoUrl: BASE_URL + "logo.jpg"
   };
 
+  // Fungsi utilitas
   async function fetchText(url) {
     const response = await fetch(url + "?t=" + Date.now());
     return (await response.text()).trim();
@@ -38,26 +39,26 @@
   };
 
   function getCloseButtonHTML() {
-    return `<button class="appolosx9-nav-btn appolosx9-close-btn" title="Tutup" style="padding: 8px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: all 0.3s ease;">
+    return `<button class="appolosx9-nav-btn appolosx9-close-btn" title="Tutup" style="padding: 8px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: all 0.3s ease;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>`;
   }
 
   function getBackButtonHTML(onClickAction) {
-    return `<button class="appolosx9-nav-btn" onclick="${onClickAction}" title="Kembali" style="padding: 8px; background: rgba(255,255,255,0.08); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: all 0.3s ease; margin-right: 8px;">
+    return `<button class="appolosx9-nav-btn" onclick="${onClickAction}" title="Kembali" style="padding: 8px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: all 0.3s ease; margin-right: 8px;">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>`;
   }
 
   function getHeaderHTML(title, showBack = false, backAction = "") {
     return `
-      <div class="appolosx9-header" style="background: rgba(15, 23, 42, 0.4); border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+      <div class="appolosx9-header">
         <div class="appolosx9-header-left">
           <div class="appolosx9-icon">
             <img src="${CONFIG.logoUrl}" alt="logo">
           </div>
           <div>
-            <div class="appolosx9-title">AppoloSX9 Modz</div>
+            <div class="appolosx9-title">AppoloSX9</div>
             <div class="appolosx9-sub">${title}</div>
           </div>
         </div>
@@ -68,15 +69,18 @@
       </div>`;
   }
 
+  // Manajemen Overlay
   const OVERLAYS = ["appolosx9-auth-box", "appolosx9-dest-overlay", "appolosx9-select-mode-overlay", "appolosx9-loading-overlay", "appolosx9-countdown-overlay"];
 
   function showOverlay(targetId) {
     for (const id of OVERLAYS) {
       const el = document.getElementById(id);
       if (el) {
-        el.style.display = id === targetId ? "block" : "none";
         if (id === targetId) {
+          el.style.display = "block";
           el.style.animation = "appolosx9-popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards";
+        } else {
+          el.style.display = "none";
         }
       }
     }
@@ -93,6 +97,7 @@
     setTimeout(() => document.getElementById("appolosx9-modz-styles")?.remove(), 300);
   }
 
+  // Injeksi CSS
   document.getElementById("appolosx9-modz-styles")?.remove();
   createElement("style", {
     id: "appolosx9-modz-styles",
@@ -104,73 +109,74 @@
       .appolosx9-overlay { 
         position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); 
         z-index:2147483647; width:340px; 
-        background: rgba(15, 23, 42, 0.85); 
-        backdrop-filter: blur(20px) saturate(180%); -webkit-backdrop-filter: blur(20px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.12); 
+        background: rgba(15, 23, 42, 0.75); 
+        backdrop-filter: blur(24px) saturate(180%); -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.1); 
         border-radius: 20px; overflow:hidden;
-        box-shadow: 0 24px 50px -12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
       }
       
       @media (max-width:400px) { .appolosx9-overlay { width:92%; } }
       
-      .appolosx9-header { display:flex; align-items:center; justify-content:space-between; padding:20px; }
+      .appolosx9-header { display:flex; align-items:center; justify-content:space-between; padding:20px; background: rgba(255,255,255,0.02); border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
       .appolosx9-header-left { display:flex; align-items:center; gap:14px; }
-      .appolosx9-icon { width:40px; height:40px; border-radius:12px; background:#1e293b; border:1px solid rgba(59,130,246,0.5); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow: 0 0 15px rgba(59,130,246,0.3); }
+      .appolosx9-icon { width:42px; height:42px; border-radius:12px; background:#1e293b; border:1px solid rgba(59,130,246,0.4); display:flex; align-items:center; justify-content:center; overflow:hidden; box-shadow: 0 0 15px rgba(59,130,246,0.2); }
       .appolosx9-icon img { width:100%; height:100%; object-fit:cover; }
       
       .appolosx9-title { font-size:15px; font-weight:700; color:#f8fafc; letter-spacing: 0.2px; }
       .appolosx9-sub { font-size:11px; color:#3b82f6; text-transform:uppercase; letter-spacing:0.8px; font-weight:600; margin-top:2px; }
       .appolosx9-body { padding:20px; }
       
-      .appolosx9-nav-btn:hover { background: rgba(255,255,255,0.15) !important; transform: scale(1.05); }
+      .appolosx9-nav-btn:hover { background: rgba(255,255,255,0.1) !important; transform: scale(1.05); }
       
       .appolosx9-input-wrap { position: relative; margin-bottom: 16px; }
       .appolosx9-input-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #64748b; display:flex; }
       #appolosx9-key-input { 
-        width: 100%; height: 46px; padding-left: 42px; padding-right: 16px; 
-        background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.1); 
+        width: 100%; height: 48px; padding-left: 44px; padding-right: 16px; 
+        background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.08); 
         border-radius: 12px; color: #f8fafc; font-size: 13px; font-weight: 500;
-        transition: all 0.3s ease; outline: none;
+        transition: all 0.3s ease; outline: none; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
       }
-      #appolosx9-key-input:focus { border-color: #3b82f6; background: rgba(30, 41, 59, 0.8); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); }
+      #appolosx9-key-input:focus { border-color: #3b82f6; background: rgba(30, 41, 59, 0.8); box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), inset 0 2px 4px rgba(0,0,0,0.1); }
+      #appolosx9-key-input::placeholder { color: #64748b; }
       
       .appolosx9-btn { 
         width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; 
-        border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer; border: none; 
+        border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; border: none; 
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
-      #appolosx9-login-btn { background: linear-gradient(135deg, #2563eb, #3b82f6); color: #fff; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); }
-      #appolosx9-login-btn:hover { background: linear-gradient(135deg, #1d4ed8, #2563eb); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); }
+      #appolosx9-login-btn { background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25); }
+      #appolosx9-login-btn:hover { background: linear-gradient(135deg, #60a5fa, #3b82f6); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); }
       #appolosx9-telegram-btn:hover { background: rgba(255,255,255,0.1) !important; color: #f8fafc !important; }
       
       .dest-option { 
         width:100%; padding:14px; background:rgba(30, 41, 59, 0.4); 
-        border:1px solid rgba(255,255,255,0.06); border-radius:14px; 
+        border:1px solid rgba(255,255,255,0.05); border-radius:14px; 
         display:flex; align-items:center; cursor:pointer; margin-bottom:10px; 
         transition:all 0.3s ease; text-align:left; position: relative; overflow: hidden;
       }
       .dest-option:hover { background:rgba(30, 41, 59, 0.8); border-color:rgba(255,255,255,0.15); transform: translateY(-1px); }
       .dest-option.selected { background:rgba(59, 130, 246, 0.08); border-color:rgba(59, 130, 246, 0.5); box-shadow: 0 4px 20px rgba(59, 130, 246, 0.1); }
       
-      .dest-option-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:14px; }
-      .dest-option-title { font-size:13px; font-weight:600; color:#f8fafc; margin-bottom:2px; }
+      .dest-option-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; margin-right:14px; }
+      .dest-option-title { font-size:14px; font-weight:600; color:#f8fafc; margin-bottom:2px; }
       .dest-option-sub { font-size:11px; color:#94a3b8; }
       
-      .dest-radio { width:18px; height:18px; border-radius:50%; border:2px solid #475569; margin-left:auto; display:flex; align-items:center; justify-content:center; transition:0.3s; }
+      .dest-radio { width:20px; height:20px; border-radius:50%; border:2px solid #475569; margin-left:auto; display:flex; align-items:center; justify-content:center; transition:0.3s; }
       .dest-option.selected .dest-radio { border-color:#3b82f6; }
-      .dest-radio-dot { width:8px; height:8px; border-radius:50%; background:#3b82f6; opacity:0; transition:0.3s; transform:scale(0); }
+      .dest-radio-dot { width:10px; height:10px; border-radius:50%; background:#3b82f6; opacity:0; transition:0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); transform:scale(0); }
       .dest-option.selected .dest-radio-dot { opacity:1; transform:scale(1); }
       
       .dest-confirm-btn { 
         width:100%; padding:14px; border-radius:12px; font-size:14px; font-weight:600; 
-        cursor:pointer; border:none; background:linear-gradient(135deg, #2563eb, #3b82f6); color:#fff; 
-        transition:all 0.3s ease; margin-top:16px; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+        cursor:pointer; border:none; background:linear-gradient(135deg, #3b82f6, #2563eb); color:#fff; 
+        transition:all 0.3s ease; margin-top:16px; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.25);
       }
-      .dest-confirm-btn:hover { background:linear-gradient(135deg, #1d4ed8, #2563eb); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); }
+      .dest-confirm-btn:hover { background:linear-gradient(135deg, #60a5fa, #3b82f6); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4); }
       
       .dest-url-input { 
         width:100%; padding:12px 14px; background:rgba(15, 23, 42, 0.6); border:1px solid rgba(168, 85, 247, 0.3); 
-        border-radius:10px; color:#f8fafc; font-size:12px; margin-top:10px; outline:none; transition:0.3s;
+        border-radius:10px; color:#f8fafc; font-size:13px; margin-top:10px; outline:none; transition:0.3s;
       }
       .dest-url-input:focus { border-color:#a855f7; box-shadow:0 0 0 3px rgba(168, 85, 247, 0.15); }
 
@@ -180,17 +186,20 @@
       }
       .mode-btn:hover { transform:translateY(-2px); background:rgba(30, 41, 59, 0.8); }
       .mode-btn-left { display:flex; align-items:center; gap:14px; }
-      .mode-icon { width:36px; height:36px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
-      .mode-name { font-size:13px; font-weight:600; color:#f8fafc; }
+      .mode-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+      .mode-name { font-size:14px; font-weight:600; color:#f8fafc; }
       .mode-timer { font-size:11px; color:#94a3b8; margin-top:2px; }
       .mode-badge { padding:4px 8px; border-radius:6px; font-size:11px; font-weight:700; }
 
       .appolosx9-step-item { display:flex; align-items:center; gap:12px; margin-bottom:14px; font-size:13px; transition: 0.3s ease; }
       
+      /* Utilities & Animations */
+      .text-center { text-align: center; justify-content: center; align-items: center; }
+      
       @keyframes appolosx9-spin { to { transform:rotate(360deg); } }
       @keyframes appolosx9-popIn { 0% { opacity: 0; transform: translate(-50%, -45%) scale(0.95); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
       @keyframes appolosx9-popOut { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -55%) scale(0.95); } }
-      @keyframes pulseGlow { 0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); } 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); } }
+      @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
     `
   }, document.head);
 
@@ -211,17 +220,17 @@
           <input type="text" id="appolosx9-key-input" placeholder="Masukkan kunci lisensi" autocomplete="off" spellcheck="false">
         </div>
         
-        <button id="appolosx9-login-btn" class="appolosx9-btn" style="height: 46px; margin-bottom: 12px;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        <button id="appolosx9-login-btn" class="appolosx9-btn" style="height: 48px; margin-bottom: 12px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
           Verifikasi Kunci
         </button>
         
-        <button id="appolosx9-telegram-btn" class="appolosx9-btn" style="background: rgba(255,255,255,0.05); color: #94a3b8; height: 46px; border: 1px solid rgba(255,255,255,0.05);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        <button id="appolosx9-telegram-btn" class="appolosx9-btn" style="background: rgba(255,255,255,0.05); color: #94a3b8; height: 48px; border: 1px solid rgba(255,255,255,0.05);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
           Dapatkan Kunci
         </button>
         
-        <div id="appolosx9-status" style="margin-top: 16px; font-size: 12px; opacity: 0.8; text-align:center;">Masukkan kunci Anda untuk melanjutkan</div>
+        <div id="appolosx9-status" class="text-center" style="margin-top: 16px; font-size: 12px; color: #94a3b8; display: flex; min-height: 20px;">Masukkan kunci Anda untuk melanjutkan</div>
       </div>`
   });
 
@@ -261,14 +270,14 @@
           <div class="dest-radio"><div class="dest-radio-dot"></div></div>
         </button>
 
-        <div id="dest-custom-wrap" style="display:none; margin-top:0px; margin-bottom:12px; animation: appolosx9-popIn 0.3s ease;">
+        <div id="dest-custom-wrap" style="display:none; margin-top:0px; margin-bottom:12px; animation: fadeIn 0.3s ease;">
           <input type="text" id="dest-url-input" class="dest-url-input" placeholder="https://..." autocomplete="off">
         </div>
 
         <button class="dest-confirm-btn" id="dest-confirm-btn">
           Konfirmasi Pilihan
         </button>
-        <div id="appolosx9-dest-status"></div>
+        <div id="appolosx9-dest-status" style="display: flex; flex-direction: column; align-items: center; width: 100%;"></div>
       </div>`
   });
 
@@ -284,7 +293,7 @@
         <button class="mode-btn" id="mode-fast" data-duration="30" style="border-color: rgba(16, 185, 129, 0.2);">
           <div class="mode-btn-left">
             <div class="mode-icon" style="background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3);">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
             <div><div class="mode-name">Mode Cepat</div><div class="mode-timer">Eksekusi agresif</div></div>
           </div>
@@ -294,7 +303,7 @@
         <button class="mode-btn" id="mode-secure" data-duration="45" style="border-color: rgba(59, 130, 246, 0.2);">
           <div class="mode-btn-left">
             <div class="mode-icon" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3);">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
             </div>
             <div><div class="mode-name">Mode Terlindungi</div><div class="mode-timer">Kecepatan stabil</div></div>
           </div>
@@ -304,7 +313,7 @@
         <button class="mode-btn" id="mode-safe" data-duration="60" style="border-color: rgba(245, 158, 11, 0.2);">
           <div class="mode-btn-left">
             <div class="mode-icon" style="background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3);">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
             </div>
             <div><div class="mode-name">Mode Sangat Aman</div><div class="mode-timer">Penyamaran penuh</div></div>
           </div>
@@ -321,7 +330,7 @@
     innerHTML: getHeaderHTML(`<span id="appolosx9-check-text">SINKRONISASI SERVER...</span>`) + `
       <div class="appolosx9-body">
         <div class="appolosx9-progress-bar" style="background: rgba(255,255,255,0.05); height: 6px; border-radius: 6px; margin-bottom: 24px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);">
-          <div class="appolosx9-progress-fill" style="background: linear-gradient(90deg, #2563eb, #60a5fa, #2563eb); background-size: 200% 100%; height: 100%; width: 60%; animation: gradientMove 2s linear infinite, pulseGlow 2s infinite;"></div>
+          <div class="appolosx9-progress-fill" style="background: linear-gradient(90deg, #3b82f6, #60a5fa, #3b82f6); background-size: 200% 100%; height: 100%; width: 60%; animation: gradientMove 2s linear infinite;"></div>
         </div>
 
         <div id="appolosx9-step-1" class="appolosx9-step-item" style="color:#10b981; font-weight: 600;">
@@ -354,15 +363,15 @@
           <div id="appolosx9-countdown-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 28px; font-weight: 800; color: #f8fafc; text-shadow: 0 0 10px rgba(255,255,255,0.3);">5</div>
         </div>
         
-        <div class="appolosx9-redirect-title" style="font-size: 15px; font-weight: 700; color: #f8fafc; margin-bottom: 6px;">Menyelesaikan Bypass...</div>
+        <div class="appolosx9-redirect-title" style="font-size: 16px; font-weight: 700; color: #f8fafc; margin-bottom: 6px;">Menyelesaikan Bypass...</div>
         <div class="appolosx9-redirect-desc" style="font-size: 12px; color: #94a3b8; margin-bottom: 20px;">Memuat protokol keamanan berlapis</div>
         
         <div style="padding: 12px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 12px; display: flex; align-items: flex-start; gap: 10px;">
-          <svg style="flex-shrink:0; margin-top:2px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <svg style="flex-shrink:0; margin-top:2px;" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
             <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
           </svg>
-          <span style="font-size: 11px; color: #fcd34d; line-height: 1.5; text-align: left; font-weight: 500;">Peringatan: Jangan tutup tab ini atau berpindah aplikasi untuk mencegah deteksi sistem.</span>
+          <span style="font-size: 12px; color: #fcd34d; line-height: 1.5; text-align: left; font-weight: 500;">Peringatan: Jangan tutup tab ini atau berpindah aplikasi untuk mencegah deteksi.</span>
         </div>
       </div>`
   });
@@ -430,9 +439,9 @@
       const customUrl = domElements.urlInput.value.trim();
       if (!customUrl.startsWith("http")) {
         domElements.destStatus.innerHTML = `
-          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; margin-top: 14px; animation: appolosx9-popIn 0.3s ease;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span style="color: #fca5a5; font-size: 12px; font-weight: 600;">Format URL tidak valid!</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; margin-top: 16px; width: 100%; animation: fadeIn 0.3s ease;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span style="color: #fca5a5; font-size: 13px; font-weight: 600;">Format URL tidak valid!</span>
           </div>`;
         return;
       }
@@ -442,9 +451,9 @@
       const targetSource = isProxy ? CONFIG.redirectUrl2 : CONFIG.redirectUrl;
       domElements.confirmDestBtn.disabled = true;
       domElements.destStatus.innerHTML = `
-        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 10px; margin-top: 14px; animation: appolosx9-popIn 0.3s ease;">
-          <div style="width: 12px; height: 12px; border: 2.5px solid rgba(59, 130, 246, 0.3); border-top-color: #3b82f6; border-radius: 50%; animation: appolosx9-spin 0.8s linear infinite;"></div>
-          <span style="color: #93c5fd; font-size: 12px; font-weight: 600;">Menarik data target...</span>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; padding: 12px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 12px; margin-top: 16px; width: 100%; animation: fadeIn 0.3s ease;">
+          <div style="width: 14px; height: 14px; border: 2.5px solid rgba(59, 130, 246, 0.3); border-top-color: #3b82f6; border-radius: 50%; animation: appolosx9-spin 0.8s linear infinite;"></div>
+          <span style="color: #93c5fd; font-size: 13px; font-weight: 600;">Menarik data target...</span>
         </div>`;
 
       try {
@@ -454,9 +463,9 @@
         proceedToModeSelection();
       } catch (err) {
         domElements.destStatus.innerHTML = `
-          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 10px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 10px; margin-top: 14px; animation: appolosx9-popIn 0.3s ease;">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            <span style="color: #fca5a5; font-size: 12px; font-weight: 600;">Gagal mendapatkan target server</span>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 12px; margin-top: 16px; width: 100%; animation: fadeIn 0.3s ease;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span style="color: #fca5a5; font-size: 13px; font-weight: 600;">Gagal mendapatkan target server</span>
           </div>`;
         domElements.confirmDestBtn.disabled = false;
       }
@@ -508,8 +517,8 @@
     await delay(2000);
     
     const updateStatus = isUpdated ? {
-      sub: `<span style="color:#10b981; display:flex; align-items:center; gap:6px;">${ICONS.check} Sinkronisasi Cloud Selesai.</span>`,
-      step: "Protokol diperbarui (Aman)"
+      sub: `<span style="color:#10b981; display:flex; align-items:center; gap:6px;">${ICONS.check} Sinkronisasi Selesai.</span>`,
+      step: "Protokol diperbarui"
     } : {
       sub: `<span style="color:#94a3b8; display:flex; align-items:center; gap:6px;">${ICONS.check} Rute lokal digunakan.</span>`,
       step: "Menggunakan cache aman."
@@ -565,6 +574,7 @@
     } catch (err) {}
   });
 
+  // PENYELESAIAN BUG: Mengubah fungsi SetStatus agar selalu rata tengah (center)
   function setStatus(msg, type = 'default') {
     const colors = {
       default: { bg: 'rgba(255,255,255,0.05)', border: 'rgba(255,255,255,0.1)', text: '#94a3b8' },
@@ -574,7 +584,7 @@
     };
     const c = colors[type] || colors.default;
     domElements.status.innerHTML = `
-      <div style="padding: 10px; background: ${c.bg}; border: 1px solid ${c.border}; border-radius: 10px; color: ${c.text}; font-size: 12px; font-weight: 600; margin-top: 16px; animation: appolosx9-popIn 0.3s ease;">
+      <div style="width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; background: ${c.bg}; border: 1px solid ${c.border}; border-radius: 12px; color: ${c.text}; font-size: 13px; font-weight: 600; animation: fadeIn 0.3s ease;">
         ${msg}
       </div>`;
   }
@@ -588,10 +598,8 @@
     }
     
     setStatus(`
-      <div style="display:flex; align-items:center; justify-content:center; gap:8px;">
-        <div style="width:12px; height:12px; border:2px solid #3b82f6; border-top-color:transparent; border-radius:50%; animation:appolosx9-spin 0.8s linear infinite;"></div>
-        Memvalidasi keamanan...
-      </div>`, "info");
+      <div style="width:14px; height:14px; border:2.5px solid #3b82f6; border-top-color:transparent; border-radius:50%; animation:appolosx9-spin 0.8s linear infinite;"></div>
+      Memvalidasi keamanan...`, "info");
       
     domElements.loginBtn.disabled = true;
     domElements.telegramBtn.disabled = true;
