@@ -179,219 +179,48 @@ createElement("div", {
     className: "appolosx9-overlay",
     style: "display:none",
     innerHTML: getHeaderHTML("Pilih Bypass Yang Ingin Anda Gunakan") + `
-/* Animasi muncul overlay */
-.appolosx9-overlay {
-  animation: appolosx9Pop .35s cubic-bezier(.175,.885,.32,1.275);
-}
+      <div class="appolosx9-body">
+        <div class="dest-desc" style="margin-bottom: 16px; font-size: 12px; color: #8b949e;">Pilih metode bypass Anda:</div>
+        
+        <button class="dest-option selected" id="dest-opt-root" style="border: 1px solid rgba(56, 139, 253, 0.4); background: rgba(56, 139, 253, 0.05);">
+          <div class="dest-option-icon aincrad" style="background: rgba(56, 139, 253, 0.1);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#388bfd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div>
+          <div style="flex: 1;">
+            <div class="dest-option-title">Aincrad Root Bypass</div>
+            <div class="dest-option-sub">Modifikasi sistem langsung</div>
+          </div>
+          <div class="dest-radio"><div class="dest-radio-dot" style="opacity: 1;"></div></div>
+        </button>
 
-@keyframes appolosx9Pop {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(.85);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-}
+        <button class="dest-option" id="dest-opt-proxy">
+          <div class="dest-option-icon aincrad" style="background: rgba(56, 139, 253, 0.05);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#388bfd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/></svg></div>
+          <div style="flex: 1;">
+            <div class="dest-option-title">Aincrad Proxy Bypass</div>
+            <div class="dest-option-sub">Pengalihan jaringan yang aman</div>
+          </div>
+          <div class="dest-radio"><div class="dest-radio-dot"></div></div>
+        </button>
 
-/* Border glow bergerak */
-.appolosx9-overlay::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 16px;
-  padding: 1px;
-  background: linear-gradient(
-    90deg,
-    #388bfd,
-    #58a6ff,
-    #a371f7,
-    #388bfd
-  );
-  background-size: 300% 300%;
-  animation: borderMove 6s linear infinite;
+        <button class="dest-option" id="dest-opt-custom">
+          <div class="dest-option-icon custom" style="background: rgba(163, 113, 247, 0.05);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a371f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg></div>
+          <div style="flex: 1;">
+            <div class="dest-option-title">Custom Link</div>
+            <div class="dest-option-sub">Masukkan target URL manual</div>
+          </div>
+          <div class="dest-radio"><div class="dest-radio-dot"></div></div>
+        </button>
 
-  mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
+        <div id="dest-custom-wrap" style="display:none; margin-top:-4px; margin-bottom:8px;">
+          <input type="text" id="dest-url-input" class="dest-url-input" placeholder="https://..." autocomplete="off" style="border: 1px solid rgba(163, 113, 247, 0.3);">
+        </div>
 
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-
-  mask-composite: exclude;
-  -webkit-mask-composite: xor;
-
-  pointer-events: none;
-}
-
-@keyframes borderMove {
-  0% { background-position:0% 50%; }
-  100% { background-position:300% 50%; }
-}
-
-/* Logo mengambang */
-.appolosx9-icon {
-  animation: floating 4s ease-in-out infinite;
-}
-
-@keyframes floating {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-4px); }
-}
-
-/* Efek hover option */
-.dest-option {
-  position: relative;
-  overflow: hidden;
-  transition: .3s;
-}
-
-.dest-option::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    120deg,
-    transparent,
-    rgba(255,255,255,.05),
-    transparent
-  );
-  transform:translateX(-100%);
-}
-
-.dest-option:hover::after {
-  animation: shine .8s;
-}
-
-@keyframes shine {
-  to {
-    transform:translateX(200%);
-  }
-}
-
-.dest-option:hover {
-  transform: translateY(-2px);
-}
-
-.dest-option.selected {
-  animation: pulseGlow 2s infinite;
-}
-
-@keyframes pulseGlow {
-  0%,100% {
-    box-shadow:
-      0 0 0 rgba(56,139,253,0);
-  }
-
-  50% {
-    box-shadow:
-      0 0 20px rgba(56,139,253,.35);
-  }
-}
-
-/* Tombol premium */
-.dest-confirm-btn,
-.appolosx9-btn {
-  position: relative;
-  overflow: hidden;
-  transition: .25s;
-}
-
-.dest-confirm-btn:hover,
-.appolosx9-btn:hover {
-  transform: translateY(-2px);
-}
-
-.dest-confirm-btn::before,
-.appolosx9-btn::before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:-100%;
-  width:50%;
-  height:100%;
-  background:linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.2),
-    transparent
-  );
-}
-
-.dest-confirm-btn:hover::before,
-.appolosx9-btn:hover::before {
-  animation: buttonLight .8s;
-}
-
-@keyframes buttonLight {
-  to {
-    left:150%;
-  }
-}
-
-/* Input glow */
-.dest-url-input,
-#appolosx9-key-input {
-  transition: .25s;
-}
-
-.dest-url-input:focus,
-#appolosx9-key-input:focus {
-  transform: scale(1.02);
-  box-shadow:
-    0 0 20px rgba(56,139,253,.25);
-}
-
-/* Loading spinner lebih hidup */
-.appolosx9-step-icon {
-  transition:.3s;
-}
-
-#appolosx9-step-2 {
-  animation: breathing 1.5s infinite;
-}
-
-@keyframes breathing {
-  0%,100% {
-    opacity:1;
-  }
-  50% {
-    opacity:.6;
-  }
-}
-
-/* Countdown angka */
-#appolosx9-countdown-number {
-  animation: pulseNum 1s infinite;
-}
-
-@keyframes pulseNum {
-  0%,100% {
-    transform:translate(-50%,-50%) scale(1);
-  }
-
-  50% {
-    transform:translate(-50%,-50%) scale(1.15);
-  }
-}
-
-/* Progress circle glow */
-#appolosx9-progress-circle {
-  animation: circleGlow 2s infinite;
-}
-
-@keyframes circleGlow {
-  0%,100% {
-    filter: drop-shadow(0 0 4px #388bfd);
-  }
-
-  50% {
-    filter: drop-shadow(0 0 12px #58a6ff);
-  }
-}`
+        <button class="dest-confirm-btn" id="dest-confirm-btn" style="height: 42px; font-size: 13px;">
+          Konfirmasi Pilihan
+        </button>
+        <div id="appolosx9-dest-status"></div>
+      </div>`
 });
+
+
 
   // Buat HTML Overlay 3: Pilih Mode
 createElement("div", {
@@ -763,4 +592,3 @@ createElement("div", {
       domElements.telegramBtn.disabled = false;
     }
   });
-})();
