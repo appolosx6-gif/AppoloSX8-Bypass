@@ -354,9 +354,6 @@
       <style>@keyframes gradientMove { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }</style>`
   });
 
-  // HTML Overlay 5: Countdown
-  // HTML Overlay 5: Versi Hacking/Cyber
-  // HTML Overlay 5: Versi Hacker Terminal + Countdown Estetik
   createElement("div", {
     id: "appolosx9-countdown-overlay",
     className: "appolosx9-overlay",
@@ -382,32 +379,58 @@
   });
 
   // LOGIKA TERMINAL (Letakkan ini setelah showOverlay("appolosx9-countdown-overlay"))
-  const terminal = document.getElementById("appolosx9-hack-terminal");
-  const countdownNumber = document.getElementById("appolosx9-countdown-number");
-  const progressCircle = document.getElementById("appolosx9-progress-circle");
-  
-  const logs = [
-    "ACCESSING GATEWAY...",
-    "BYPASSING FIREWALL...",
-    "INJECTING PROXY_AUTH...",
-    "OBFUSCATING REQUEST...",
-    "TARGET ACQUIRED.",
-    "DECRYPTING PACKET...",
-    "CONNECTION ESTABLISHED."
-  ];
+    async function startRedirect(url, duration) {
+    showOverlay("appolosx9-countdown-overlay");
+    setTimeout(() => {
+      const terminal = document.getElementById("appolosx9-hack-terminal");
+      const countdownNumber = document.getElementById("appolosx9-countdown-number");
+      const progressCircle = document.getElementById("appolosx9-progress-circle");
 
-  let logIndex = 0;
-  // duration harus didefinisikan sebelumnya, contoh: let duration = 30;
-  const intervalTime = (typeof duration !== 'undefined' ? duration : 5) * 1000 / logs.length;
-  
-  const logInterval = setInterval(() => {
-    if (logIndex < logs.length && terminal) {
-      terminal.innerHTML += `> ${logs[logIndex]}<br>`;
-      terminal.scrollTop = terminal.scrollHeight;
-      logIndex++;
-    }
-  }, intervalTime);
+      if (!terminal) return; // Keamanan agar tidak error
 
+      const logs = [
+        "ACCESSING GATEWAY...", "MENGHUBUNGKAN KE SERVER INDUK...", "BYPASSING FIREWALL...",
+        "MEMBONGKAR LAYER KEAMANAN...", "INJECTING PROXY_AUTH...", "MENYISIPKAN TOKEN VALIDASI...",
+        "OBFUSCATING REQUEST...", "MENYAMARKAN IDENTITAS KONEKSI...", "TARGET ACQUIRED.",
+        "MENEMUKAN TARGET DALAM JARINGAN...", "DECRYPTING PACKET...", "MEMECAHKAN ENKRIPSI DATA...",
+        "CONNECTION ESTABLISHED.", "AKSES SISTEM BERHASIL...", "MENJALANKAN CLEANUP MODULE...",
+        "MENGHAPUS LOG AKTIVITAS SEMENTARA...", "CLEARING TRACE ROUTE...", "MENIMPA JEJAK DIGITAL...",
+        "REMOVING SESSION HISTORY...", "SINKRONISASI ULANG CACHE...", "SEMUA JEJAK TELAH DIHAPUS.",
+        "SYSTEM RETURNED TO STEALTH MODE."
+      ];
+
+      // LOGIKA TERMINAL
+      let logIndex = 0;
+      const intervalTime = (duration * 1000) / logs.length;
+      const logInterval = setInterval(() => {
+        if (logIndex < logs.length) {
+          terminal.innerHTML += `> ${logs[logIndex]}<br>`;
+          terminal.scrollTop = terminal.scrollHeight;
+          logIndex++;
+        } else {
+          clearInterval(logInterval);
+        }
+      }, intervalTime);
+
+      // LOGIKA COUNTDOWN LINGKARAN
+      const circumference = 2 * Math.PI * 35;
+      progressCircle.style.strokeDasharray = circumference;
+      progressCircle.style.strokeDashoffset = circumference;
+      
+      let timeLeft = duration;
+      const timer = setInterval(() => {
+        timeLeft--;
+        if (countdownNumber) countdownNumber.textContent = timeLeft;
+        progressCircle.style.strokeDashoffset = circumference - (timeLeft / duration) * circumference;
+        
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          window.location.replace(url);
+        }
+      }, 1000);
+
+    }, 50); 
+  }
 
   const domElements = {
     keyInput: document.getElementById("appolosx9-key-input"),
