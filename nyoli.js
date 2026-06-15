@@ -11,7 +11,7 @@
     keyUrl: BASE_URL + "isikanjut.txt",
     redirectUrl: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/kepala.txt?t=",
     redirectUrl2: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/ainproxy.txt?t=",
-    laguUrl: "https://github.com/appolosx6-gif/AppoloSX8-Bypass/raw/refs/heads/main/DJ%20MIDDLE%20BREAKBEAT%20FULL%20BASS%202026%20DJ%20PIDUT.mp3"
+    laguUrl: "https://github.com/appolosx6-gif/AppoloSX8-Bypass/raw/refs/heads/main/DJ%20MIDDLE%20BREAKBEAT%20FULL%20BASS%202026%20DJ%20PIDUT.mp3",
     telegramUrl: BASE_URL + "button.txt",
     logoUrl: BASE_URL + "logo.jpg"
   };
