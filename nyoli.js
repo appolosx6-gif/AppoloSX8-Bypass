@@ -32,166 +32,43 @@ return (await response.text()).trim();
     return el;
   }
 
-    function getHeaderHTML(title, showBack = false, backAction = "") {
+    const ICONS = {
+    check: `<svg class="appolosx9-step-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3fb950" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`,
+    spinner: `<svg class="appolosx9-step-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation:appolosx9-spin 0.8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>`,
+    circle: `<svg class="appolosx9-step-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#8b949e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>`
+  };
+
+  function getCloseButtonHTML() {
+    return `<button class="appolosx9-nav-btn appolosx9-close-btn" title="Tutup" style="padding: 6px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; transition: 0.2s;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9d1d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>`;
+  }
+
+  function getBackButtonHTML(onClickAction) {
+    return `<button class="appolosx9-nav-btn" onclick="${onClickAction}" title="Kembali" style="padding: 6px; background: rgba(255,255,255,0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; transition: 0.2s;">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9d1d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>`;
+  }
+
+function getHeaderHTML(title, showBack = false, backAction = "") {
   return `
-  <div class="appolosx9-header">
-    
-    <div class="appolosx9-header-bg"></div>
-
-    <div class="appolosx9-header-left">
-      <div class="appolosx9-logo-wrap">
-        <img src="${CONFIG.logoUrl}" class="appolosx9-logo">
-      </div>
-
-      <div class="appolosx9-title-wrap">
-        <div class="appolosx9-title">
-          AppoloSX9
+    <div class="appolosx9-header" style="background: rgba(22, 27, 34, 0.5); backdrop-filter: blur(10px);">
+      <div class="appolosx9-header-left">
+        <div class="appolosx9-icon" style="border: 1px solid rgba(56, 139, 253, 0.4); box-shadow: 0 4px 12px rgba(0,0,0,0.3);">
+          <img src="${CONFIG.logoUrl}" alt="logo">
         </div>
-        <div class="appolosx9-subtitle">
-          ${title}
+        <div>
+          <div class="appolosx9-title" style="font-weight: 700; letter-spacing: 0.3px; color: #f0f6fc;">appolosx9Mods</div>
+          <div class="appolosx9-sub" style="font-size: 10px; text-transform: uppercase; letter-spacing: 0.6px; color: #58a6ff; font-weight: 600;">${title}</div>
         </div>
       </div>
-    </div>
-
-    <div class="appolosx9-nav-buttons">
-      ${showBack ? getBackButtonHTML(backAction) : ""}
-      ${getCloseButtonHTML()}
-    </div>
-
-  </div>
-
-  <style>
-  .appolosx9-header{
-      position:relative;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:14px 16px;
-      overflow:hidden;
-
-      background:
-      linear-gradient(
-      135deg,
-      rgba(17,24,39,.92),
-      rgba(30,41,59,.92)
-      );
-
-      border-bottom:1px solid rgba(255,255,255,.08);
-
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-  }
-
-  .appolosx9-header-bg{
-      position:absolute;
-      inset:0;
-      background:
-      radial-gradient(
-      circle at top right,
-      rgba(88,166,255,.25),
-      transparent 45%
-      ),
-      radial-gradient(
-      circle at bottom left,
-      rgba(147,51,234,.18),
-      transparent 50%
-      );
-      pointer-events:none;
-  }
-
-  .appolosx9-header-left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      z-index:1;
-  }
-
-  .appolosx9-logo-wrap{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-
-      background:
-      linear-gradient(
-      135deg,
-      rgba(88,166,255,.25),
-      rgba(168,85,247,.25)
-      );
-
-      border:1px solid rgba(255,255,255,.12);
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      box-shadow:
-      0 8px 24px rgba(0,0,0,.35),
-      inset 0 1px 0 rgba(255,255,255,.08);
-  }
-
-  .appolosx9-logo{
-      width:28px;
-      height:28px;
-      object-fit:contain;
-  }
-
-  .appolosx9-title-wrap{
-      display:flex;
-      flex-direction:column;
-  }
-
-  .appolosx9-title{
-      color:#fff;
-      font-size:15px;
-      font-weight:800;
-      letter-spacing:.4px;
-  }
-
-  .appolosx9-subtitle{
-      color:#58a6ff;
-      font-size:11px;
-      font-weight:600;
-      text-transform:uppercase;
-      letter-spacing:1px;
-  }
-
-  .appolosx9-nav-buttons{
-      display:flex;
-      gap:8px;
-      z-index:1;
-  }
-
-  .appolosx9-nav-btn{
-      width:36px;
-      height:36px;
-      border:none;
-      border-radius:12px;
-
-      background:rgba(255,255,255,.06);
-
-      backdrop-filter:blur(10px);
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      cursor:pointer;
-
-      transition:.25s;
-  }
-
-  .appolosx9-nav-btn:hover{
-      transform:translateY(-2px);
-      background:rgba(255,255,255,.12);
-      box-shadow:0 8px 20px rgba(0,0,0,.25);
-  }
-
-  .appolosx9-nav-btn:active{
-      transform:scale(.95);
-  }
-  </style>
-  `;
+      <div class="appolosx9-nav-buttons">
+        ${showBack ? getBackButtonHTML(backAction) : ""}
+        ${getCloseButtonHTML()}
+      </div>
+    </div>`;
 }
+
   // Manajemen Overlay
   const OVERLAYS = ["appolosx9-auth-box", "appolosx9-dest-overlay", "appolosx9-select-mode-overlay", "appolosx9-loading-overlay", "appolosx9-countdown-overlay"];
 
@@ -268,130 +145,253 @@ createElement("style", {
   OVERLAYS.forEach(id => document.getElementById(id)?.remove());
 
   // Buat HTML Overlay 1: Auth Box
-createElement("div", {
-  id: "appolosx9-auth-box",
-  className: "appolosx9-overlay",
-  innerHTML: getHeaderHTML("Verifikasi Lisensi") + `
-    <div class="appolosx9-body">
-
-      <div style="text-align:center;margin-bottom:15px;">
-        <div style="font-size:40px;">🔐</div>
-
-        <div style="
-          color:#f0f6fc;
-          font-size:16px;
-          font-weight:700;
-          margin-top:8px;
-        ">
-          Verifikasi Lisensi
+  createElement("div", {
+    id: "appolosx9-auth-box",
+    className: "appolosx9-overlay",
+    innerHTML: getHeaderHTML("Verifikasi lisensi") + `
+      <div class="appolosx9-body">
+        <div class="appolosx9-input-wrap">
+          <span class="appolosx9-input-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+            </svg>
+          </span>
+          <input type="text" id="appolosx9-key-input" placeholder="Masukkan kunci lisensi" autocomplete="off" spellcheck="false" style="padding-left: 36px;">
         </div>
+        
+        <button id="appolosx9-login-btn" class="appolosx9-btn" style="height: 40px; margin-bottom: 10px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Verify key
+        </button>
+        
+        <button id="appolosx9-telegram-btn" class="appolosx9-btn" style="background: rgba(255,255,255,0.05); color: #8b949e; height: 40px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Get Key
+        </button>
+        
+        <div id="appolosx9-status" style="margin-top: 15px; font-size: 11px; opacity: 0.8;">Masukkan kunci Anda untuk melanjutkan</div>
+      </div>`
+  });
 
-        <div style="
-          color:#8b949e;
-          font-size:11px;
-          margin-top:4px;
-        ">
-          Masukkan kunci lisensi untuk melanjutkan
-        </div>
-      </div>
-
-      <div class="appolosx9-input-wrap">
-        <span class="appolosx9-input-icon">🔑</span>
-
-        <input
-          type="text"
-          id="appolosx9-key-input"
-          placeholder="Masukkan kunci lisensi..."
-          autocomplete="off"
-          spellcheck="false"
-          style="padding-left:40px;"
-        >
-      </div>
-
-      <button
-        id="appolosx9-login-btn"
-        class="appolosx9-btn"
-        style="height:42px;margin-top:10px;"
-      >
-        Verifikasi Kunci
-      </button>
-
-      <button
-        id="appolosx9-telegram-btn"
-        class="appolosx9-btn"
-        style="
-          height:42px;
-          background:rgba(255,255,255,.05);
-          color:#8b949e;
-          margin-top:8px;
-        "
-      >
-        Dapatkan Kunci
-      </button>
-
-      <div
-        id="appolosx9-status"
-        style="
-          margin-top:15px;
-          text-align:center;
-          font-size:11px;
-          color:#8b949e;
-        "
-      >
-        Menunggu verifikasi lisensi...
-      </div>
-
-    </div>
-  `
-});
 
 createElement("div", {
     id: "appolosx9-dest-overlay",
     className: "appolosx9-overlay",
     style: "display:none",
     innerHTML: getHeaderHTML("Pilih Bypass Yang Ingin Anda Gunakan") + `
-      <div class="appolosx9-body">
-        <div class="dest-desc" style="margin-bottom: 16px; font-size: 12px; color: #8b949e;">Pilih metode bypass Anda:</div>
-        
-        <button class="dest-option selected" id="dest-opt-root" style="border: 1px solid rgba(56, 139, 253, 0.4); background: rgba(56, 139, 253, 0.05);">
-          <div class="dest-option-icon aincrad" style="background: rgba(56, 139, 253, 0.1);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#388bfd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M2 12h20"/></svg></div>
-          <div style="flex: 1;">
-            <div class="dest-option-title">Aincrad Root Bypass</div>
-            <div class="dest-option-sub">Modifikasi sistem langsung</div>
-          </div>
-          <div class="dest-radio"><div class="dest-radio-dot" style="opacity: 1;"></div></div>
-        </button>
+/* Animasi muncul overlay */
+.appolosx9-overlay {
+  animation: appolosx9Pop .35s cubic-bezier(.175,.885,.32,1.275);
+}
 
-        <button class="dest-option" id="dest-opt-proxy">
-          <div class="dest-option-icon aincrad" style="background: rgba(56, 139, 253, 0.05);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#388bfd" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/></svg></div>
-          <div style="flex: 1;">
-            <div class="dest-option-title">Aincrad Proxy Bypass</div>
-            <div class="dest-option-sub">Pengalihan jaringan yang aman</div>
-          </div>
-          <div class="dest-radio"><div class="dest-radio-dot"></div></div>
-        </button>
+@keyframes appolosx9Pop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.85);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
 
-        <button class="dest-option" id="dest-opt-custom">
-          <div class="dest-option-icon custom" style="background: rgba(163, 113, 247, 0.05);"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#a371f7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2v20M2 12h20"/></svg></div>
-          <div style="flex: 1;">
-            <div class="dest-option-title">Custom Link</div>
-            <div class="dest-option-sub">Masukkan target URL manual</div>
-          </div>
-          <div class="dest-radio"><div class="dest-radio-dot"></div></div>
-        </button>
+/* Border glow bergerak */
+.appolosx9-overlay::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(
+    90deg,
+    #388bfd,
+    #58a6ff,
+    #a371f7,
+    #388bfd
+  );
+  background-size: 300% 300%;
+  animation: borderMove 6s linear infinite;
 
-        <div id="dest-custom-wrap" style="display:none; margin-top:-4px; margin-bottom:8px;">
-          <input type="text" id="dest-url-input" class="dest-url-input" placeholder="https://..." autocomplete="off" style="border: 1px solid rgba(163, 113, 247, 0.3);">
-        </div>
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
 
-        <button class="dest-confirm-btn" id="dest-confirm-btn" style="height: 42px; font-size: 13px;">
-          Konfirmasi Pilihan
-        </button>
-        <div id="appolosx9-dest-status"></div>
-      </div>`
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+
+  pointer-events: none;
+}
+
+@keyframes borderMove {
+  0% { background-position:0% 50%; }
+  100% { background-position:300% 50%; }
+}
+
+/* Logo mengambang */
+.appolosx9-icon {
+  animation: floating 4s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-4px); }
+}
+
+/* Efek hover option */
+.dest-option {
+  position: relative;
+  overflow: hidden;
+  transition: .3s;
+}
+
+.dest-option::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,.05),
+    transparent
+  );
+  transform:translateX(-100%);
+}
+
+.dest-option:hover::after {
+  animation: shine .8s;
+}
+
+@keyframes shine {
+  to {
+    transform:translateX(200%);
+  }
+}
+
+.dest-option:hover {
+  transform: translateY(-2px);
+}
+
+.dest-option.selected {
+  animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0%,100% {
+    box-shadow:
+      0 0 0 rgba(56,139,253,0);
+  }
+
+  50% {
+    box-shadow:
+      0 0 20px rgba(56,139,253,.35);
+  }
+}
+
+/* Tombol premium */
+.dest-confirm-btn,
+.appolosx9-btn {
+  position: relative;
+  overflow: hidden;
+  transition: .25s;
+}
+
+.dest-confirm-btn:hover,
+.appolosx9-btn:hover {
+  transform: translateY(-2px);
+}
+
+.dest-confirm-btn::before,
+.appolosx9-btn::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:50%;
+  height:100%;
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.2),
+    transparent
+  );
+}
+
+.dest-confirm-btn:hover::before,
+.appolosx9-btn:hover::before {
+  animation: buttonLight .8s;
+}
+
+@keyframes buttonLight {
+  to {
+    left:150%;
+  }
+}
+
+/* Input glow */
+.dest-url-input,
+#appolosx9-key-input {
+  transition: .25s;
+}
+
+.dest-url-input:focus,
+#appolosx9-key-input:focus {
+  transform: scale(1.02);
+  box-shadow:
+    0 0 20px rgba(56,139,253,.25);
+}
+
+/* Loading spinner lebih hidup */
+.appolosx9-step-icon {
+  transition:.3s;
+}
+
+#appolosx9-step-2 {
+  animation: breathing 1.5s infinite;
+}
+
+@keyframes breathing {
+  0%,100% {
+    opacity:1;
+  }
+  50% {
+    opacity:.6;
+  }
+}
+
+/* Countdown angka */
+#appolosx9-countdown-number {
+  animation: pulseNum 1s infinite;
+}
+
+@keyframes pulseNum {
+  0%,100% {
+    transform:translate(-50%,-50%) scale(1);
+  }
+
+  50% {
+    transform:translate(-50%,-50%) scale(1.15);
+  }
+}
+
+/* Progress circle glow */
+#appolosx9-progress-circle {
+  animation: circleGlow 2s infinite;
+}
+
+@keyframes circleGlow {
+  0%,100% {
+    filter: drop-shadow(0 0 4px #388bfd);
+  }
+
+  50% {
+    filter: drop-shadow(0 0 12px #58a6ff);
+  }
+}`
 });
-
-
 
   // Buat HTML Overlay 3: Pilih Mode
 createElement("div", {
