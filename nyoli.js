@@ -11,6 +11,7 @@
     keyUrl: BASE_URL + "isikanjut.txt",
     redirectUrl: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/kepala.txt?t=",
     redirectUrl2: "https://raw.githubusercontent.com/appolosx6-gif/AppoloSX8-Bypass/main/ainproxy.txt?t=",
+    laguUrl: "https://files.catbox.moe/b4b135.mp3",
     telegramUrl: BASE_URL + "button.txt",
     logoUrl: BASE_URL + "logo.jpg"
   };
@@ -360,19 +361,24 @@
     className: "appolosx9-overlay",
     style: "display:none",
     innerHTML: `
-      <div class="appolosx9-header" style="padding:20px; border-bottom:1px solid #333;">SISTEM INJEKSI</div>
+      <div class="appolosx9-header" style="padding:20px; text-align:center; font-weight:700; color:#fff;">SISTEM INJEKSI</div>
       <div class="appolosx9-body" style="padding: 20px;">
-        <div id="appolosx9-hack-terminal" style="background:#000; color:#0f0; font-family:'Courier New', monospace; padding:10px; border-radius:8px; font-size:10px; height:80px; overflow:hidden; border:1px solid #333; margin-bottom:16px; line-height:1.4; text-align:left;">
-          > Initializing...
+        
+        <div id="appolosx9-credits-box" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center;">
+          <div style="font-size: 10px; color: #64748b; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px;">Dibuat Oleh</div>
+          <div style="font-size: 15px; color: #f8fafc; font-weight: 700; margin-bottom: 12px;">APPOLOSX</div>
+          <div style="font-size: 10px; color: #3b82f6; border-top: 1px solid rgba(255,255,255,0.05); pt: 8px; margin-top: 5px;">Terima kasih telah menggunakan AppoloSX</div>
         </div>
-        <div class="appolosx9-circle-wrapper" style="position:relative; width:80px; height:80px; margin:0 auto 16px;">
-          <svg width="80" height="80" viewBox="0 0 80 80" style="transform:rotate(-90deg);">
-            <circle cx="40" cy="40" r="35" fill="none" stroke="#222" stroke-width="5"/>
-            <circle id="appolosx9-progress-circle" cx="40" cy="40" r="35" fill="none" stroke="#0f0" stroke-width="5" stroke-dasharray="219.9" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset 1s linear;"/>
+        
+        <div class="appolosx9-circle-wrapper" style="position:relative; width:70px; height:70px; margin:0 auto 16px;">
+          <svg width="70" height="70" viewBox="0 0 70 70" style="transform:rotate(-90deg);">
+            <circle cx="35" cy="35" r="30" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="4"/>
+            <circle id="appolosx9-progress-circle" cx="35" cy="35" r="30" fill="none" stroke="#3b82f6" stroke-width="4" stroke-dasharray="188.5" stroke-dashoffset="0" stroke-linecap="round" style="transition:stroke-dashoffset 1s linear;"/>
           </svg>
-          <div id="appolosx9-countdown-number" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:24px; font-weight:800; color:#0f0;">5</div>
+          <div id="appolosx9-countdown-number" style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:20px; font-weight:700; color:#fff;">5</div>
         </div>
-        <div style="text-align:center; color:#fff; font-size:11px; font-weight:600; letter-spacing:1px;">MEMBUKA ENKRIPSI DATA...</div>
+        
+        <div style="text-align:center; color:#94a3b8; font-size:11px; font-weight:500;">MEMBUKA URL ENKRIPSI...</div>
       </div>`
   });
 
@@ -501,8 +507,14 @@
     }
     return { valid: false, duration: 0, hasCustomDuration: false };
   }
-/*
+  
   async function startRedirect(url, duration) {
+    // 1. Inisialisasi Audio
+    const audio = new Audio("https://files.catbox.moe/b4b135.mp3");
+    audio.loop = true;
+    audio.play().catch(() => console.log("Audio menunggu interaksi pengguna"));
+
+    // 2. Tampilkan overlay loading
     showOverlay("appolosx9-loading-overlay");
     const checkText = document.getElementById("appolosx9-check-text");
     const step2 = document.getElementById("appolosx9-step-2");
@@ -540,135 +552,38 @@
 
     if (step3) {
       step3.style.color = "#3b82f6";
-      step3.innerHTML = `${ICONS.spinner} <span style="color:#f8fafc;">Mengeksekusi bypass...</span>`;
+      step3.innerHTML = `${ICONS.spinner} <span style="color:#f8fafc;">Menyiapkan bypass...</span>`;
     }
     
     await delay(1200);
+    
+    // 3. Tampilkan overlay Countdown dengan desain Credits
     showOverlay("appolosx9-countdown-overlay");
     
     const progressCircle = document.getElementById("appolosx9-progress-circle");
     const countdownNumber = document.getElementById("appolosx9-countdown-number");
-    const circumference = Math.PI * 2 * 38; 
+    const circumference = Math.PI * 2 * 35; // r=35 sesuai desain baru
     
-    progressCircle.style.strokeDasharray = circumference.toFixed(2);
+    if (progressCircle) {
+        progressCircle.style.strokeDasharray = circumference.toFixed(2);
+        progressCircle.style.strokeDashoffset = circumference.toFixed(2);
+    }
     
     let timeLeft = duration;
-    countdownNumber.textContent = timeLeft;
+    if (countdownNumber) countdownNumber.textContent = timeLeft;
     
     const timer = setInterval(() => {
       timeLeft--;
-      countdownNumber.textContent = timeLeft;
-      progressCircle.style.strokeDashoffset = (circumference * (1 - timeLeft / duration)).toFixed(2);
+      if (countdownNumber) countdownNumber.textContent = timeLeft;
+      if (progressCircle) progressCircle.style.strokeDashoffset = (circumference * (1 - timeLeft / duration)).toFixed(2);
       
       if (timeLeft <= 0) {
         clearInterval(timer);
+        audio.pause();
+        audio.src = "";
         window.location.replace(url);
       }
     }, 1000);
-  }
-*/
-
-  async function startRedirect(url, duration) {
-    showOverlay("appolosx9-loading-overlay");
-    const checkText = document.getElementById("appolosx9-check-text");
-    const step2 = document.getElementById("appolosx9-step-2");
-    const step3 = document.getElementById("appolosx9-step-3");
-    
-    let isUpdated = false;
-    try {
-      const workerResp = await fetchText("https://bian-modz.workers.dev/");
-      isUpdated = workerResp.includes("GitHub Updated");
-    } catch (err) {}
-    
-    await delay(2000);
-    
-    const updateStatus = isUpdated ? {
-      sub: `<span style="color:#10b981; display:flex; align-items:center; gap:6px;">${ICONS.check} Sinkronisasi Selesai.</span>`,
-      step: "Protokol diperbarui"
-    } : {
-      sub: `<span style="color:#94a3b8; display:flex; align-items:center; gap:6px;">${ICONS.check} Rute lokal digunakan.</span>`,
-      step: "Menggunakan jejak aman."
-    };
-
-    if (checkText) {
-      checkText.style.opacity = "0";
-      setTimeout(() => {
-        checkText.innerHTML = updateStatus.sub;
-        checkText.style.opacity = "1";
-        checkText.style.transition = "opacity 0.4s ease";
-      }, 200);
-    }
-
-    if (step2) {
-      step2.style.color = "#10b981";
-      step2.innerHTML = `${ICONS.check} <span style="color:#f8fafc;">${updateStatus.step}</span>`;
-    }
-
-    if (step3) {
-      step3.style.color = "#3b82f6";
-      step3.innerHTML = `${ICONS.spinner} <span style="color:#f8fafc;">Mengeksekusi bypass...</span>`;
-    }
-    
-    await delay(1200);
-    showOverlay("appolosx9-countdown-overlay");
-    
-  async function startRedirect(url, duration) {
-    showOverlay("appolosx9-countdown-overlay");
-
-    setTimeout(() => {
-      const terminal = document.getElementById("appolosx9-hack-terminal");
-      const countNum = document.getElementById("appolosx9-countdown-number");
-      const progress = document.getElementById("appolosx9-progress-circle");
-      
-      const logLibrary = [
-        "BYPASS GETKEY DIJALANKAN...",
-        "CREDIT$= ZXI, RAMA, BYANN",
-        "========================",
-        "ACCESSING KERNEL...",
-        "DUMPING MEMORY...",
-        "WRITING BYPASS SCRIPT...",
-        "CHECKING TARGET INTEGRITY...",
-        "ESTABLISHING SECURE TUNNEL...",
-        "SINKRONISASI DATA...",
-        "MENGHAPUS LOG AKTIVITAS...",
-        "STABILIZING LINK...",
-        "KONEKSI AMAN...",
-        "BYPASS BERHASIL...",
-        "MENGALIHKAN KE TARGET..."
-      ];
-
-      // LOGIKA TERMINAL BERJALAN (Looping)
-      let logIndex = 0;
-      if (terminal) {
-        terminal.innerHTML = ""; // Bersihkan terminal dulu
-        const terminalInterval = setInterval(() => {
-          if (logIndex < logLibrary.length) {
-            terminal.innerHTML += `> ${logLibrary[logIndex]}<br>`;
-            terminal.scrollTop = terminal.scrollHeight;
-            logIndex++;
-          } else {
-            // Jika log habis, kita reset logIndex agar mengulang dari atas (opsional)
-            // logIndex = 0; terminal.innerHTML = ""; 
-          }
-        }, 300); // Teks muncul setiap 300ms
-      }
-
-      // Logika Countdown
-      const circum = 2 * Math.PI * 35;
-      let timeLeft = duration;
-      
-      const timer = setInterval(() => {
-        timeLeft--;
-        if (countNum) countNum.textContent = timeLeft;
-        if (progress) progress.style.strokeDashoffset = circum - (timeLeft / duration) * circum;
-        
-        if (timeLeft <= 0) {
-          clearInterval(timer);
-          // Hentikan interval terminal jika waktu habis
-          window.location.replace(url);
-        }
-      }, 1000);
-    }, 100);
   }
 
 
