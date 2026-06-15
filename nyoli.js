@@ -356,55 +356,57 @@
 
   // HTML Overlay 5: Countdown
   // HTML Overlay 5: Versi Hacking/Cyber
+  // HTML Overlay 5: Versi Hacker Terminal + Countdown Estetik
   createElement("div", {
     id: "appolosx9-countdown-overlay",
     className: "appolosx9-overlay",
     style: "display:none",
     innerHTML: getHeaderHTML("SISTEM INJEKSI") + `
-      <div class="appolosx9-body">
-        <div id="appolosx9-hack-terminal" style="background: #000; color: #0f0; font-family: 'Courier New', monospace; padding: 12px; border-radius: 8px; font-size: 11px; height: 100px; overflow: hidden; border: 1px solid #333; margin-bottom: 16px; line-height: 1.4;">
-          > Menginisialisasi koneksi...<br>
-          > Melewati lapisan keamanan...<br>
-          > Menyuntikkan muatan...
+      <div class="appolosx9-body" style="padding: 20px;">
+        <div id="appolosx9-hack-terminal" style="background: #000; color: #0f0; font-family: 'Courier New', monospace; padding: 10px; border-radius: 8px; font-size: 10px; height: 80px; overflow: hidden; border: 1px solid #333; margin-bottom: 16px; line-height: 1.4; text-align: left;">
+          > Initializing system bypass...<br>
         </div>
         
-        <div class="appolosx9-circle-wrapper" style="position: relative; width: 70px; height: 70px; margin: 0 auto 16px;">
-          <svg width="70" height="70" viewBox="0 0 70 70" style="transform: rotate(-90deg);">
-            <circle cx="35" cy="35" r="30" fill="none" stroke="#222" stroke-width="4"/>
-            <circle id="appolosx9-progress-circle" cx="35" cy="35" r="30" fill="none" stroke="#0f0" 
-              stroke-width="4" stroke-dasharray="188.5" stroke-dashoffset="0" stroke-linecap="round"/>
+        <div class="appolosx9-circle-wrapper" style="position: relative; width: 80px; height: 80px; margin: 0 auto 16px;">
+          <svg width="80" height="80" viewBox="0 0 80 80" style="transform: rotate(-90deg);">
+            <circle cx="40" cy="40" r="35" fill="none" stroke="#222" stroke-width="5"/>
+            <circle id="appolosx9-progress-circle" cx="40" cy="40" r="35" fill="none" stroke="#0f0" 
+              stroke-width="5" stroke-dasharray="219.9" stroke-dashoffset="0" stroke-linecap="round" 
+              style="transition: stroke-dashoffset 1s linear;"/>
           </svg>
-          <div id="appolosx9-countdown-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 20px; font-weight: 800; color: #0f0;">5</div>
+          <div id="appolosx9-countdown-number" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; font-weight: 800; color: #0f0;">5</div>
         </div>
         
-        <div style="text-align: center; color: #fff; font-size: 12px; font-weight: 600;">ENCRYPTING DATA...</div>
+        <div style="text-align: center; color: #fff; font-size: 11px; font-weight: 600; letter-spacing: 1px;">ENCRYPTING DATA...</div>
       </div>`
   });
 
-const terminal = document.getElementById("appolosx9-hack-terminal");
-const logs = [
-  "ACCESSING GATEWAY...",
-  "MENGHUBUNGKAN KE SERVER INDUK...",
-  "BYPASSING FIREWALL...",
-  "MEMBONGKAR LAYER KEAMANAN...",
-  "MENYISIPKAN TOKEN VALIDASI...",
-  "MENEMUKAN TARGET DALAM JARINGAN...",
-  "MEMECAHKAN ENKRIPSI DATA...",
-  "CONNECTION ESTABLISHED.",
-  "AKSES SISTEM BERHASIL...",
-  "MENJALANKAN CLEANUP MODULE...",
-  "MENGHAPUS LOG AKTIVITAS SEMENTARA...",
-  "SEMUA JEJAK TELAH DIHAPUS.",
-];
+  // LOGIKA TERMINAL (Letakkan ini setelah showOverlay("appolosx9-countdown-overlay"))
+  const terminal = document.getElementById("appolosx9-hack-terminal");
+  const countdownNumber = document.getElementById("appolosx9-countdown-number");
+  const progressCircle = document.getElementById("appolosx9-progress-circle");
+  
+  const logs = [
+    "ACCESSING GATEWAY...",
+    "BYPASSING FIREWALL...",
+    "INJECTING PROXY_AUTH...",
+    "OBFUSCATING REQUEST...",
+    "TARGET ACQUIRED.",
+    "DECRYPTING PACKET...",
+    "CONNECTION ESTABLISHED."
+  ];
 
-let logIndex = 0;
-const logInterval = setInterval(() => {
-  if (logIndex < logs.length) {
-    terminal.innerHTML += `> ${logs[logIndex]}<br>`;
-    terminal.scrollTop = terminal.scrollHeight; // Auto scroll ke bawah
-    logIndex++;
-  }
-}, (duration * 1000) / logs.length);
+  let logIndex = 0;
+  // duration harus didefinisikan sebelumnya, contoh: let duration = 30;
+  const intervalTime = (typeof duration !== 'undefined' ? duration : 5) * 1000 / logs.length;
+  
+  const logInterval = setInterval(() => {
+    if (logIndex < logs.length && terminal) {
+      terminal.innerHTML += `> ${logs[logIndex]}<br>`;
+      terminal.scrollTop = terminal.scrollHeight;
+      logIndex++;
+    }
+  }, intervalTime);
 
 
   const domElements = {
