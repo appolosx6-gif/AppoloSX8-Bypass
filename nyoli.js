@@ -612,6 +612,9 @@
     await delay(1200);
     showOverlay("appolosx9-countdown-overlay");
     
+  async function startRedirect(url, duration) {
+    showOverlay("appolosx9-countdown-overlay");
+
     setTimeout(() => {
       const terminal = document.getElementById("appolosx9-hack-terminal");
       const countNum = document.getElementById("appolosx9-countdown-number");
@@ -634,11 +637,23 @@
         "MENGALIHKAN KE TARGET..."
       ];
 
+      // LOGIKA TERMINAL BERJALAN (Looping)
+      let logIndex = 0;
       if (terminal) {
-        terminal.innerHTML = logLibrary.map(log => `> ${log}`).join("<br>");
-        terminal.scrollTop = terminal.scrollHeight;
+        terminal.innerHTML = ""; // Bersihkan terminal dulu
+        const terminalInterval = setInterval(() => {
+          if (logIndex < logLibrary.length) {
+            terminal.innerHTML += `> ${logLibrary[logIndex]}<br>`;
+            terminal.scrollTop = terminal.scrollHeight;
+            logIndex++;
+          } else {
+            // Jika log habis, kita reset logIndex agar mengulang dari atas (opsional)
+            // logIndex = 0; terminal.innerHTML = ""; 
+          }
+        }, 300); // Teks muncul setiap 300ms
       }
 
+      // Logika Countdown
       const circum = 2 * Math.PI * 35;
       let timeLeft = duration;
       
@@ -649,11 +664,13 @@
         
         if (timeLeft <= 0) {
           clearInterval(timer);
+          // Hentikan interval terminal jika waktu habis
           window.location.replace(url);
         }
       }, 1000);
     }, 100);
   }
+
 
   domElements.telegramBtn.addEventListener("click", async () => {
     try {
